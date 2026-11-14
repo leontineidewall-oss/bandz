@@ -1,0 +1,5 @@
+{
+  "cleanUrls": true,
+  "functions": { "api/crew.js": { "maxDuration": 30 }, "api/payroll.js": { "maxDuration": 30 }, "api/vault.js": { "maxDuration": 20 } },
+  "headers": [{ "source": "/(.*)", "headers": [{ "key": "x-content-type-options", "value": "nosniff" }, { "key": "referrer-policy", "value": "strict-origin-when-cross-origin" }] }]
+}
