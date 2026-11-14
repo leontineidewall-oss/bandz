@@ -2,6 +2,8 @@
 
 buys drop bandz. sells bring cops.
 
+Live at https://bandzsol.vercel.app
+
 Static page (index.html) plus Vercel functions in api/. No database and no keys on the server: everything is read from public data, and payday is signed by the safehouse wallet in the browser.
 
 ## Environment (Vercel, Settings, Environment Variables)
