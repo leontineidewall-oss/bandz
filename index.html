@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>bandz</title>
-<meta name="description" content="buys drop bandz. sells bring cops.">
+<title>bandz · buys drop bandz. sells bring cops.</title>
+<meta name="description" content="a city that runs on bandz. every buy pulls a job, every sell brings cops, and the safehouse pays the crew.">
 <meta property="og:title" content="bandz">
 <meta property="og:description" content="buys drop bandz. sells bring cops.">
 <meta property="og:image" content="https://bandzsol.vercel.app/og.jpg">
@@ -14,8 +14,9 @@
 <meta name="theme-color" content="#0e0820">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+
 :root{--bg:#0e0820;--p1:#150c2c;--p2:#1c1139;--p3:#261850;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.15);
 --ink:#fff4e2;--mute:#b3a6cf;--dim:#7a6d9a;--cash:#7ee08f;--band:#f4e3bb;--pink:#ff5c8a;--sun:#ff9a62;--red:#ff4d5a;--blue:#4da3ff;--star:#ffd36b;
 --sans:Inter,system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace;--max:1180px;--pad:clamp(16px,4vw,40px)}
@@ -28,7 +29,12 @@ button{font:inherit;color:inherit;cursor:pointer}
 .mono{font-family:var(--mono)}
 .wm{font-weight:900;letter-spacing:-.055em;line-height:1;color:var(--ink);text-shadow:.045em .045em 0 #170b33}
 /* nav */
-nav{position:sticky;top:0;z-index:20;background:rgba(14,8,32,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav{position:fixed;top:0;left:0;right:0;z-index:20;background:transparent;border-bottom:1px solid transparent;transition:background .35s,border-color .35s,backdrop-filter .35s}
+nav.solid{background:rgba(14,8,32,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom-color:var(--line)}
+nav:not(.solid) .links a{color:rgba(255,244,226,.86);text-shadow:0 1px 10px rgba(14,8,32,.6)}
+nav:not(.solid) .heat{background:rgba(14,8,32,.28);border-color:rgba(255,244,226,.18)}
+nav .links a.on{color:var(--ink);background:rgba(255,255,255,.08)}
+nav .ghostnav{display:inline-flex}
 nav .wrap{display:flex;align-items:center;gap:18px;height:60px}
 nav .logo{font-size:27px;text-decoration:none;margin-right:6px}
 nav .links{display:flex;gap:2px;flex:1}
@@ -47,9 +53,15 @@ nav .heat{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px so
 .pill[aria-disabled=true],.pill:disabled{opacity:.42;pointer-events:none;box-shadow:none}
 .menu{display:none;background:none;border:1px solid var(--line2);border-radius:10px;width:40px;height:38px;padding:0}
 /* hero */
-.hero{position:relative;height:clamp(560px,86vh,780px);overflow:hidden;background:#120a2e}
+.hero{position:relative;height:max(620px,100vh);height:max(620px,100svh);overflow:hidden;background:#120a2e}
+.hero.mini{height:clamp(380px,52vh,500px)}
+.hero.mini .over{top:96px}
+.hero.mini h1{font-size:clamp(64px,10vw,124px)}
+.hero .cue{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);font:700 10.5px var(--mono);letter-spacing:.2em;color:rgba(255,244,226,.6);pointer-events:none}
+.hero .cue:after{content:"";display:block;width:1px;height:26px;margin:8px auto 0;background:linear-gradient(rgba(255,244,226,.7),transparent);animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(.2);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(.2);transform-origin:bottom}}
 #city{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero .over{position:absolute;left:0;right:0;top:clamp(54px,9vh,96px);text-align:center;pointer-events:none;padding:0 16px}
+.hero .over{position:absolute;left:0;right:0;top:clamp(104px,15vh,150px);text-align:center;pointer-events:none;padding:0 16px}
 .hero h1{margin:0;font-size:clamp(96px,17vw,228px)}
 .hero .tag{margin:14px 0 0;font-weight:800;font-size:clamp(16px,2vw,21px);letter-spacing:-.01em;color:var(--ink);text-shadow:0 2px 14px rgba(14,8,32,.8)}
 .hero .tag b{color:var(--cash)}
@@ -58,7 +70,7 @@ nav .heat{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px so
 .ca{display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 6px 0 16px;border-radius:999px;background:rgba(14,8,32,.62);border:1px solid var(--line2);font:600 13px var(--mono);color:var(--ink);max-width:100%}
 .ca span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .ca button{height:30px;padding:0 12px;border-radius:999px;border:0;background:var(--p3);font:700 12px var(--mono)}
-.hero .hud{position:absolute;right:var(--pad);top:16px;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(14,8,32,.55);border:1px solid var(--line);font:700 12px var(--mono);color:var(--mute);pointer-events:none}
+.hero .hud{position:absolute;right:var(--pad);top:76px;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(14,8,32,.55);border:1px solid var(--line);font:700 12px var(--mono);color:var(--mute);pointer-events:none}
 .hero .jobs{position:absolute;left:0;right:0;bottom:18px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 12px}
 .hero .jobs span{font:700 11px var(--mono);color:rgba(255,244,226,.7);align-self:center;margin-right:2px;letter-spacing:.06em}
 .hero .jobs button{height:32px;padding:0 13px;border-radius:999px;border:1px solid rgba(255,244,226,.28);background:rgba(14,8,32,.6);font:700 12px var(--mono)}
@@ -70,13 +82,13 @@ nav .heat{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px so
 .stat:first-child{border-left:0;padding-left:0}
 .stat small{display:block;font:600 11px var(--mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
 .stat b{display:block;margin-top:4px;font:700 20px var(--mono);letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.stat b .up,.stat b .dn{font-size:12px;letter-spacing:0}.stat b .up{color:var(--cash)}.stat b .dn{color:var(--red)}
+.stat b .up,.stat b .dn{display:block;font-size:11.5px;letter-spacing:0;margin-top:2px}.stat b .up{color:var(--cash)}.stat b .dn{color:var(--red)}
 .src{font:500 11.5px var(--mono);color:var(--dim);padding:10px 0 12px;border-top:1px solid var(--line)}
 .src i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--dim);margin-right:7px;vertical-align:1px}
 .src i.live{background:var(--cash);box-shadow:0 0 8px var(--cash)}
 .src i.err{background:var(--red)}
 /* sections */
-section.sec{padding-top:92px;padding-bottom:20px;scroll-margin-top:60px}
+section.sec{padding-top:104px;padding-bottom:20px;scroll-margin-top:60px}
 .lab{font:700 12px var(--mono);color:var(--pink);letter-spacing:.1em;text-transform:uppercase}
 h2{margin:10px 0 0;font-size:clamp(34px,5vw,58px);font-weight:900;letter-spacing:-.045em;line-height:1.02}
 h2 em{font-style:normal;color:var(--cash)}
@@ -219,13 +231,276 @@ footer .links a[aria-disabled=true]{opacity:.4;pointer-events:none}
  .stars.big i{width:38px;height:38px}
  footer .wm{font-size:48px}
 }
+
+/* ---------- v2: tape, strip, home sections ---------- */
+.tape{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:var(--bg);height:44px}
+.tape .run{position:absolute;top:0;left:0;display:flex;gap:34px;white-space:nowrap;height:44px;align-items:center;font:600 12.5px var(--mono);color:var(--mute);animation:tape 60s linear infinite;padding-left:34px}
+.tape .run b{font-weight:700}
+.tape .run .b{color:var(--cash)}.tape .run .s{color:var(--red)}
+.tape .run i{font-style:normal;color:var(--dim)}
+.tape:before,.tape:after{content:"";position:absolute;top:0;bottom:0;width:60px;z-index:1;pointer-events:none}
+.tape:before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}.tape:after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+.tape .none{display:flex;align-items:center;justify-content:center;height:44px;font:600 12px var(--mono);color:var(--dim)}
+@keyframes tape{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.strip.eight .wrap{grid-template-columns:repeat(8,minmax(0,1fr))}
+.strip.eight .stat b{font-size:17px}
+.lore{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:center;margin-top:10px}
+.lore p.big{font-size:clamp(22px,2.6vw,30px);line-height:1.35;font-weight:700;letter-spacing:-.02em;margin:0;color:var(--ink)}
+.lore p.big em{font-style:normal;color:var(--cash)}.lore p.big s{text-decoration:none;color:var(--pink)}
+.lore .lines{margin-top:22px;display:grid;gap:10px}
+.lore .lines>div{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;color:var(--mute);font-size:15px}
+.lore .lines span{font:700 12px var(--mono);color:var(--dim);padding-top:3px}
+.lore canvas{width:100%;height:340px;display:block;border-radius:22px;background:var(--p1);border:1px solid var(--line)}
+.jobcards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+.jobcard{padding:20px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.jobcard canvas{width:100%;height:96px;display:block;margin-bottom:8px}
+.jobcard b{font-size:20px;font-weight:900;letter-spacing:-.02em}
+.jobcard small{color:var(--dim);font:500 12px var(--mono)}
+.jobcard .n{margin-top:10px;padding-top:12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font:600 12px var(--mono);color:var(--mute)}
+.jobcard .n b{font:700 15px var(--mono);color:var(--ink)}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:30px}
+.flow .f{padding:22px 20px;border:1px solid var(--line);background:var(--p1);position:relative}
+.flow .f:first-child{border-radius:18px 0 0 18px}.flow .f:last-child{border-radius:0 18px 18px 0}
+.flow .f+.f{border-left:0}
+.flow .f:not(:last-child):after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--p3);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font:700 13px var(--mono);color:var(--cash);z-index:2}
+.flow .f small{display:block;font:700 11px var(--mono);color:var(--dim);letter-spacing:.08em}
+.flow .f b{display:block;font-size:18px;font-weight:900;margin-top:6px}
+.flow .f span{display:block;color:var(--mute);font-size:13.5px;margin-top:4px}
+.flow .f .v{margin-top:12px;font:700 15px var(--mono);color:var(--ink)}
+.calc{margin-top:30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.calc .card{padding:26px}
+.formula{font:600 15px var(--mono);line-height:2;color:var(--mute)}
+.formula b{color:var(--ink)}.formula em{font-style:normal;color:var(--cash)}
+.calc label{display:block;font:700 11px var(--mono);color:var(--dim);letter-spacing:.08em;margin-bottom:8px}
+.calc .field input{font-size:16px}
+.calc .out{margin-top:18px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 16px;font:500 13.5px var(--mono)}
+.calc .out span{color:var(--dim)}.calc .out b{text-align:right;font-weight:700}
+.calc .out b.cut{font-size:22px;color:var(--cash)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chips button{height:28px;padding:0 11px;border-radius:99px;border:1px solid var(--line2);background:transparent;font:600 11.5px var(--mono);color:var(--mute)}
+.chips button:hover{color:var(--ink);border-color:var(--cash)}
+.boards{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-top:30px}
+.board{padding:8px}
+.board h3{margin:0;padding:14px 12px 10px;font-size:17px;font-weight:900;display:flex;justify-content:space-between;align-items:baseline}
+.board h3 small{font:600 11px var(--mono);color:var(--dim)}
+.brow{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:12px;padding:10px 12px;border-top:1px solid var(--line);font:500 13px var(--mono);align-items:center}
+.brow .r{color:var(--dim)}.brow a{text-decoration:none;color:var(--mute)}
+.brow b{font-weight:700}.board.good .brow b{color:var(--cash)}.board.bad .brow b{color:var(--red)}
+.cant{margin-top:30px;overflow:hidden}
+.cant .tr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);border-top:1px solid var(--line)}
+.cant .tr:first-child{border-top:0}
+.cant .tr div{padding:16px 22px;font-size:14.5px}
+.cant .tr div:first-child{color:var(--ink);font-weight:700;border-right:1px solid var(--line)}
+.cant .tr div:last-child{color:var(--mute)}
+.cant .th div{font:700 11px var(--mono)!important;letter-spacing:.1em;color:var(--dim)!important;background:var(--p2);text-transform:uppercase}
+.gloss{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:30px}
+.gloss div{padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--p1)}
+.gloss b{display:block;font-size:16px;font-weight:900}
+.gloss span{display:block;color:var(--mute);font-size:13.5px;margin-top:3px}
+.cta{margin-top:110px;position:relative;overflow:hidden;border-radius:28px;border:1px solid var(--line2);min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 20px}
+.cta canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cta .in2{position:relative}
+.cta h2{font-size:clamp(40px,6vw,76px);text-shadow:.045em .045em 0 #170b33}
+.cta p{color:var(--ink);margin:12px 0 22px;font-weight:600;text-shadow:0 2px 12px rgba(14,8,32,.8)}
+.cta .acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hqhead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+@media (max-width:980px){
+ .strip.eight .wrap{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .strip.eight .stat:nth-child(5){border-left:0;padding-left:0}
+ .strip.eight .stat:nth-child(4){border-left:1px solid var(--line);padding-left:14px}
+ .strip.eight .stat:nth-child(n+5){border-top:1px solid var(--line)}
+ .lore,.calc,.boards{grid-template-columns:minmax(0,1fr)}
+ .jobcards,.flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .flow .f{border-radius:0!important;border-left:1px solid var(--line)!important}
+ .flow .f:not(:last-child):after{display:none}
+ .gloss{grid-template-columns:repeat(2,minmax(0,1fr))}
+ nav{background:rgba(14,8,32,.35)}
+ nav .links{background:rgba(14,8,32,.96)}
+}
+@media (max-width:560px){
+ .strip.eight .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .strip.eight .stat{border-left:0!important;padding-left:0!important}
+ .strip.eight .stat:nth-child(even){border-left:1px solid var(--line)!important;padding-left:14px!important}
+ .strip.eight .stat:nth-child(n+3){border-top:1px solid var(--line)}
+ .flow,.gloss{grid-template-columns:minmax(0,1fr)}
+ .jobcards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .jobcard{padding:14px}
+ .jobcard canvas{height:64px}
+ .jobcard b{font-size:16px}
+ .cant .tr{grid-template-columns:minmax(0,1fr)}
+ .cant .tr div:first-child{border-right:0;padding-bottom:4px}
+ .cant .tr div:last-child{padding-top:0}
+ .cant .th{display:none!important}
+ .lore canvas{height:240px}
+ .hero .cue{display:none}
+ .hero .jobs span{display:none}
+}
+
+.strip .wrap+.wrap{display:block}
+.hero.mini{height:clamp(500px,66vh,600px)}
+.hero.mini .over{top:92px}
+.hero.mini h1{font-size:clamp(64px,9vw,112px)}
+.flow .f .v small{display:inline;font:600 11px var(--mono);color:var(--dim);letter-spacing:0;margin-left:6px}
+.formula+.kv{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+
+/* ---------- polish ---------- */
+::selection{background:var(--cash);color:#0e0820}
+:focus-visible{outline:2px solid var(--cash);outline-offset:3px;border-radius:8px}
+.pill{transition:transform .18s,box-shadow .18s,background .18s,border-color .18s,opacity .18s}
+.pill.cream:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #170b33}
+.pill.cream:active{transform:translate(1px,1px);box-shadow:1px 1px 0 #170b33}
+.pill.ghost:hover{border-color:var(--ink);background:rgba(255,244,226,.08)}
+.card{transition:border-color .25s,transform .25s,background .25s}
+.jobcard:hover,.gloss div:hover,.step:hover{border-color:var(--line2);transform:translateY(-3px)}
+.gloss div{transition:border-color .25s,transform .25s}
+.board .brow,.row,.mem,.lrow{transition:background .2s}
+.board .brow:hover,.row:hover,.mem:hover,.lrow:hover{background:rgba(255,255,255,.025)}
+.fl{animation:fl 1.1s ease-out}
+@keyframes fl{0%{color:var(--cash);text-shadow:0 0 14px rgba(126,224,143,.7)}100%{text-shadow:none}}
+.load{background:linear-gradient(90deg,var(--dim) 0%,var(--ink) 50%,var(--dim) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:shim 1.6s linear infinite}
+@keyframes shim{from{background-position:100% 0}to{background-position:-100% 0}}
+.stars.pulse{animation:spulse .9s ease-out}
+@keyframes spulse{0%{transform:scale(1)}30%{transform:scale(1.18);filter:drop-shadow(0 0 8px rgba(255,211,107,.8))}100%{transform:scale(1)}}
+.stars i.on{filter:drop-shadow(0 0 4px rgba(255,211,107,.55))}
+/* hero intro */
+.hero .over h1,.hero .over .tag,.hero .over .acts,.hero .jobs,.hero .hud,.hero .cue{opacity:0}
+body.ready .hero .over h1{animation:rise .9s cubic-bezier(.2,.8,.2,1) .05s forwards}
+body.ready .hero .over .tag{animation:rise .8s cubic-bezier(.2,.8,.2,1) .3s forwards}
+body.ready .hero .over .acts{animation:rise .8s cubic-bezier(.2,.8,.2,1) .45s forwards}
+body.ready .hero .jobs,body.ready .hero .hud,body.ready .hero .cue{animation:fade .8s ease .8s forwards}
+@keyframes rise{from{opacity:0;transform:translateY(26px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.hero .over{will-change:transform,opacity}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+.hero .jobs{z-index:2}
+/* section glow */
+section.sec{position:relative}
+section.sec>.rv:first-child:before{content:"";position:absolute;left:-120px;top:-60px;width:420px;height:260px;background:radial-gradient(closest-side,rgba(216,75,120,.10),transparent);pointer-events:none;z-index:-1}
+section.sec>.rv:first-child{position:relative}
+/* footer */
+footer{position:relative;margin-top:120px;border-top:0;padding:0 0 40px;background:linear-gradient(180deg,var(--bg),#0a0618)}
+footer #footart{display:block;width:100%;height:150px}
+footer .fgrid{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:30px;padding-top:30px;align-items:start}
+footer .fgrid p{margin:12px 0 16px;color:var(--mute);font-weight:600}
+footer h4{margin:0 0 12px;font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+footer .col a{display:block;text-decoration:none;color:var(--mute);font-weight:600;font-size:14px;padding:5px 0}
+footer .col a:hover{color:var(--ink)}
+footer .col a[aria-disabled=true]{opacity:.4;pointer-events:none}
+footer .ca{max-width:100%}
+footer .fbot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font:500 12px var(--mono);color:var(--dim)}
+/* hq side card */
+.side{padding:24px;margin-top:18px}
+.side h3{margin:0 0 14px;font-size:20px;font-weight:900;letter-spacing:-.02em}
+@media (max-width:980px){footer .fgrid{grid-template-columns:repeat(3,minmax(0,1fr))}footer .fgrid>div:first-child{grid-column:1/-1}}
+@media (max-width:560px){footer .fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}footer #footart{height:100px}}
+@media (prefers-reduced-motion:reduce){.hero .over h1,.hero .over .tag,.hero .over .acts,.hero .jobs,.hero .hud,.hero .cue{opacity:1!important;animation:none!important}.load,.fl,.stars.pulse{animation:none}}
+
+footer .wrap:last-child{display:block}
+.kv b span{color:inherit;font:inherit}
+
+/* ---------- v3: more info + motion ---------- */
+.bigt{overflow:hidden;margin-top:110px;padding:6px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(216,75,120,.06),rgba(126,224,143,.05))}
+.bigrun{display:flex;gap:34px;width:max-content;align-items:center;animation:tape 38s linear infinite;padding:6px 0}
+.bigrun.r{animation-direction:reverse;animation-duration:44s}
+.bigrun span{font:900 clamp(40px,6vw,82px)/1 var(--sans);letter-spacing:-.05em;color:var(--ink);white-space:nowrap}
+.bigrun span.o{color:transparent;-webkit-text-stroke:1.5px rgba(255,244,226,.55)}
+.bigrun i{font-style:normal;color:var(--pink);font-size:clamp(22px,3vw,40px)}
+.bigt:hover .bigrun{animation-play-state:paused}
+h2 .w{display:inline-block;opacity:0;transform:translateY(.45em) rotate(2deg);filter:blur(4px)}
+.rv.vis h2 .w,.cta.vis h2 .w{animation:word .7s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes word{to{opacity:1;transform:none;filter:none}}
+.rv.vis .stars.big i.on{animation:starin .5s cubic-bezier(.2,1.4,.4,1) both}
+.rv.vis .stars.big i:nth-child(2){animation-delay:.12s}.rv.vis .stars.big i:nth-child(3){animation-delay:.24s}.rv.vis .stars.big i:nth-child(4){animation-delay:.36s}.rv.vis .stars.big i:nth-child(5){animation-delay:.48s}
+@keyframes starin{from{transform:scale(0) rotate(-90deg)}to{transform:none}}
+.flow{position:relative}
+.flow .runner{position:absolute;top:-7px;left:0;width:30px;height:14px;border-radius:3px;background:linear-gradient(90deg,#86cb8d 0 40%,#f4e3bb 40% 60%,#86cb8d 60%);box-shadow:0 0 14px rgba(126,224,143,.7);z-index:3;animation:run 6s cubic-bezier(.6,0,.4,1) infinite;pointer-events:none}
+@keyframes run{0%{left:0;opacity:0}6%{opacity:1}94%{opacity:1}100%{left:calc(100% - 30px);opacity:0}}
+.mini4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}
+.mini4 .card{padding:18px 20px}
+.mini4 small{display:block;font:700 11px var(--mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.mini4 b{display:block;font:800 26px var(--mono);letter-spacing:-.03em;margin-top:6px}
+.mini4 b .up{color:var(--cash)}.mini4 b .dn{color:var(--red)}
+.mini4 .card>span{display:block;color:var(--mute);font-size:13px}
+.ranks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+.rank{padding:20px;display:flex;flex-direction:column;gap:4px}
+.rank canvas{width:100%;height:130px;display:block;margin-bottom:8px}
+.rank small{font:700 11px var(--mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.rank>b{font-size:24px;font-weight:900;letter-spacing:-.03em}
+.rank>span{color:var(--mute);font-size:13.5px}
+.rank .n{margin-top:10px;padding-top:12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font:600 12px var(--mono);color:var(--mute)}
+.rank .n b{font:700 15px var(--mono);color:var(--ink)}
+.rank:hover{border-color:rgba(126,224,143,.35);transform:translateY(-3px)}
+.rk{font:700 10px var(--mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:1px;border:1px solid var(--line2);color:var(--mute)}
+.rk.soldier{color:#9fd8ff;border-color:rgba(77,163,255,.4)}.rk.capo{color:var(--cash);border-color:rgba(126,224,143,.4)}.rk.boss{color:var(--star);border-color:rgba(255,211,107,.5);box-shadow:0 0 10px rgba(255,211,107,.2)}
+.ca.mini{height:36px;font-size:11.5px;padding-left:12px}
+.ca.mini button{height:26px}
+.step .ca{max-width:100%}
+@media (max-width:980px){.mini4,.ranks{grid-template-columns:repeat(2,minmax(0,1fr))}.flow .runner{display:none}}
+@media (max-width:560px){.mini4 b{font-size:20px}.ranks{gap:10px}.rank{padding:14px}.rank canvas{height:76px}.rank>b{font-size:19px}.bigt{margin-top:80px}}
+@media (prefers-reduced-motion:reduce){.bigrun,.flow .runner{animation:none}h2 .w{opacity:1;transform:none;filter:none}}
+
+/* ---------- v4: cool ---------- */
+html.lock{overflow:hidden}
+#intro{position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse at 50% 120%,#6a2277 0%,#2b1259 38%,#0e0820 75%);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:clip-path .7s cubic-bezier(.7,0,.2,1),opacity .7s;clip-path:inset(0 0 0 0)}
+#intro.out{clip-path:inset(0 0 100% 0)}
+#intro .isky{position:absolute;left:0;right:0;bottom:0;height:42%;display:flex;align-items:flex-end;gap:2px;opacity:.9}
+#intro .isky i{flex:1;background:linear-gradient(#2c1446,#120a24);transform-origin:bottom;animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes grow{from{transform:scaleY(0)}to{transform:none}}
+#intro .in{position:relative;text-align:center}
+#intro .wm{font-size:clamp(80px,16vw,200px);animation:slam .6s cubic-bezier(.2,1.6,.4,1) .15s both}
+@keyframes slam{from{opacity:0;transform:scale(1.7);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+#intro .istars{display:flex;gap:10px;justify-content:center;margin-top:18px}
+#intro .istars i{width:30px;height:30px;background:var(--star);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);animation:starin .45s cubic-bezier(.2,1.4,.4,1) both,blinkst .5s 1.3s 2 alternate;filter:drop-shadow(0 0 8px rgba(255,211,107,.8))}
+#intro .istars i:nth-child(1){animation-delay:.5s,1.3s}#intro .istars i:nth-child(2){animation-delay:.62s,1.3s}#intro .istars i:nth-child(3){animation-delay:.74s,1.3s}#intro .istars i:nth-child(4){animation-delay:.86s,1.3s}#intro .istars i:nth-child(5){animation-delay:.98s,1.3s}
+@keyframes blinkst{to{opacity:.25}}
+#intro .ibar{width:min(320px,70vw);height:4px;border-radius:9px;background:rgba(255,255,255,.12);margin:26px auto 0;overflow:hidden}
+#intro .ibar i{display:block;height:100%;background:linear-gradient(90deg,var(--cash),var(--star),var(--pink));transform-origin:left;animation:load 1.6s cubic-bezier(.6,.1,.3,1) both}
+@keyframes load{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#intro .itxt{margin-top:12px;font:700 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+#prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--cash),var(--star),var(--pink));transform-origin:left;transform:scaleX(0);pointer-events:none}
+.wx{position:absolute;right:var(--pad);bottom:22px;z-index:3;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,244,226,.28);background:rgba(14,8,32,.6);font:700 11.5px var(--mono);color:rgba(255,244,226,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.wx b{color:var(--ink)}
+.wx:hover{border-color:var(--ink);color:var(--ink)}
+.wx[data-m=storm] b{color:#c9b6ff}.wx[data-m=rain] b{color:#9fd8ff}
+.posters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:6px 12px 14px}
+.posters:empty{display:none}
+.poster{display:block;border-radius:6px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.45);transition:transform .25s}
+.poster:nth-child(1){transform:rotate(-2.2deg)}.poster:nth-child(2){transform:rotate(1.6deg)}.poster:nth-child(3){transform:rotate(-1deg)}
+.poster canvas{display:block;width:100%;aspect-ratio:3/4}
+.poster:after{content:"";position:absolute}
+.fly{position:absolute;width:30px;height:15px;border-radius:3px;background:linear-gradient(90deg,#86cb8d 0 38%,#f4e3bb 38% 62%,#86cb8d 62%);box-shadow:0 2px 8px rgba(0,0,0,.4);pointer-events:none;z-index:5}
+.calc .card{position:relative;overflow:visible}
+.jobcard,.rank,.step,.mini4 .card,.flow .f{transform-style:preserve-3d;will-change:transform}
+.jobcard:before,.rank:before,.step:before,.mini4 .card:before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(400px circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.07),transparent 40%);opacity:0;transition:opacity .3s;pointer-events:none}
+.jobcard:hover:before,.rank:hover:before,.step:hover:before,.mini4 .card:hover:before{opacity:1}
+.step,.mini4 .card{position:relative}
+body:after{content:"";position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1s steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}
+.pill.cream{position:relative;overflow:hidden}
+.pill.cream:after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:sheen 4.5s ease-in-out infinite}
+@keyframes sheen{0%,70%{left:-60%}100%{left:130%}}
+.hero h1{position:relative}
+.hero h1:after{content:attr(data-t);position:absolute;left:0;right:0;top:0;text-shadow:none;color:transparent;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.95) 50%,transparent 58%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;animation:shine 6s ease-in-out 1.6s infinite;pointer-events:none}
+@keyframes shine{0%,55%{background-position:120% 0}100%{background-position:-60% 0}}
+@media (max-width:560px){.wx{bottom:auto;top:72px;right:16px}.posters{gap:8px;padding:4px 8px 10px}.hero .jobs{bottom:14px}}
+@media (prefers-reduced-motion:reduce){#intro{display:none}body:after,.pill.cream:after,.hero h1:after{animation:none;display:none}}
+
+.topjob{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:center;margin:4px 12px 12px;padding:16px;border-radius:14px;background:radial-gradient(circle at 15% 50%,rgba(126,224,143,.14),transparent 60%),var(--p2);border:1px solid rgba(126,224,143,.25)}
+.topjob:empty{display:none}
+.topjob canvas{width:120px;height:86px;display:block}
+.topjob small{display:block;font:700 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cash)}
+.topjob b{display:block;font:800 clamp(28px,3.4vw,40px) var(--mono);letter-spacing:-.04em;margin:2px 0;text-shadow:0 0 22px rgba(126,224,143,.35)}
+.topjob span{display:block;font:500 12.5px var(--mono);color:var(--mute)}
+@media (max-width:560px){.topjob{grid-template-columns:80px minmax(0,1fr);gap:12px}.topjob canvas{width:80px;height:60px}}
+
 </style>
 </head>
-<body>
-<nav><div class="wrap">
- <a class="logo wm" href="#top">bandz</a>
- <div class="links" id="links"><a href="#jobs">jobs</a><a href="#heat">heat</a><a href="#safehouse">safehouse</a><a href="#crew">crew</a><a href="#how">how</a><a href="#faq">faq</a></div>
- <div class="heat" title="heat"><span class="stars" data-stars></span><span class="lbl mono" style="font:700 11px var(--mono);color:var(--mute)">HEAT</span></div>
+<body data-page="home">
+<div id="intro" aria-hidden="true"><div class="isky"></div><div class="in"><div class="wm">bandz</div><div class="istars"><i></i><i></i><i></i><i></i><i></i></div><div class="ibar"><i></i></div><div class="itxt">loading the city · tap to skip</div></div></div>
+<nav id="nav"><i id="prog"></i><div class="wrap">
+ <a class="logo wm" href="/">bandz</a>
+ <div class="links" id="links"><a href="#story">the city</a><a href="#jobs">jobs</a><a href="#heat">heat</a><a href="#payday">payday</a><a href="#boards">boards</a><a href="#faq">faq</a><a href="/hq">hq</a></div>
+ <div class="heat" title="heat"><span class="stars" data-stars></span><span class="lbl" style="font:700 11px var(--mono);color:var(--mute)">HEAT</span></div>
  <a class="pill cream sm buy" data-buy href="#" aria-disabled="true" target="_blank" rel="noopener">buy</a>
  <button class="menu" id="menu" aria-label="menu"><svg width="18" height="14" viewBox="0 0 18 14"><path d="M0 1h18M0 7h18M0 13h18" stroke="#fff4e2" stroke-width="2"/></svg></button>
 </div></nav>
@@ -233,38 +508,63 @@ footer .links a[aria-disabled=true]{opacity:.4;pointer-events:none}
 <header class="hero" id="top">
  <canvas id="city" aria-label="the city"></canvas>
  <div class="hud"><span class="stars" data-stars></span><span data-k="heatword">heat</span></div>
+ <button class="wx" id="wx" data-m="auto" title="weather"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 11a3 3 0 0 1 .4-6A4.5 4.5 0 0 1 13 6a2.5 2.5 0 0 1-.5 5z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 13l-1 2M8.5 13l-1 2M12 13l-1 2" stroke="currentColor" stroke-width="1.5"/></svg>weather <b>heat</b></button>
  <div class="over">
-  <h1 class="wm">bandz</h1>
+  <h1 class="wm" data-t="bandz">bandz</h1>
   <p class="tag"><b>buys drop bandz.</b> <em>sells bring cops.</em></p>
   <div class="acts">
    <div class="ca"><span data-k="ca">—</span><button data-copy="ca">copy</button></div>
    <a class="pill cream" data-buy href="#" aria-disabled="true" target="_blank" rel="noopener">buy on pump.fun</a>
-   <a class="pill ghost" data-chart href="#" aria-disabled="true" target="_blank" rel="noopener">chart</a>
+   <a class="pill ghost" href="/hq">enter the hq</a>
   </div>
  </div>
- <div class="jobs" id="plan"><span>PULL A JOB</span><button data-job="0">store</button><button data-job="1">truck</button><button data-job="2">bank</button><button data-job="3">casino</button></div>
+ <div class="cue">SCROLL</div>
+ <div class="jobs" id="plan"><span>PULL A JOB · 1-4</span><button data-job="0">store</button><button data-job="1">truck</button><button data-job="2">bank</button><button data-job="3">casino</button></div>
 </header>
 
-<div class="strip"><div class="wrap">
+<div class="tape" id="tape"><div class="none">reading the street…</div></div>
+
+<div class="strip eight"><div class="wrap">
  <div class="stat"><small>price</small><b data-k="price">—</b></div>
  <div class="stat"><small>market cap</small><b data-k="mcap">—</b></div>
  <div class="stat"><small>24h volume</small><b data-k="vol">—</b></div>
+ <div class="stat"><small>liquidity</small><b data-k="liq">—</b></div>
  <div class="stat"><small>heat</small><b><span class="stars" data-stars></span></b></div>
  <div class="stat"><small>safehouse</small><b data-k="bal">—</b></div>
  <div class="stat"><small>crew</small><b data-k="crew">—</b></div>
+ <div class="stat"><small>holders</small><b data-k="holders">—</b></div>
 </div><div class="wrap"><div class="src"><i data-k="dot"></i><span data-k="src">reading the city…</span></div></div></div>
 
 <main>
+<section class="sec wrap" id="story">
+ <div class="rv"><div class="lab">01 · the city</div><h2>a city that runs on <em>bandz</em>.</h2></div>
+ <div class="lore">
+  <div class="rv">
+   <p class="big">every buy is a crew <em>pulling a job</em>. every sell is a call <s>to the cops</s>. the coin's fees stack in one safehouse, and when the heat dies down, the crew gets paid.</p>
+   <div class="lines">
+    <div><span>01</span><div>the city is live. every car, every band and every siren on this page is a real trade.</div></div>
+    <div><span>02</span><div>nobody holds your money. the safehouse is one public wallet, and every payout is on chain.</div></div>
+    <div><span>03</span><div>no sign up. hold the floor and you're crew.</div></div>
+   </div>
+  </div>
+  <canvas class="rv" id="lore" aria-label="the job board"></canvas>
+ </div>
+</section>
+
+<div class="bigt rv" aria-hidden="true"><div class="bigrun"><span>buys drop bandz</span><i>✦</i><span class="o">sells bring cops</span><i>✦</i><span>keep the heat low</span><i>✦</i><span class="o">get paid</span><i>✦</i><span>buys drop bandz</span><i>✦</i><span class="o">sells bring cops</span><i>✦</i><span>keep the heat low</span><i>✦</i><span class="o">get paid</span><i>✦</i></div></div>
+
 <section class="sec wrap" id="jobs">
- <div class="rv"><div class="lab">01 · jobs</div><h2>every buy is a <em>job</em>.</h2><p class="lede">the bigger the buy, the bigger the job. every sell sends cops.</p></div>
- <div class="grid2">
-  <div class="card feed rv" id="feed"><div class="empty">reading the street…</div></div>
-  <div class="card tiers rv" id="tiers"></div>
+ <div class="rv"><div class="lab">02 · jobs</div><h2>the bigger the buy, the bigger the <em>job</em>.</h2><p class="lede">four jobs. the size of the buy picks the job. counts are from the last 60 trades.</p></div>
+ <div class="jobcards">
+  <div class="card jobcard rv"><canvas data-icon="t0"></canvas><b>store job</b><small>under $100</small><div class="n"><span>recent</span><b data-jn="0">—</b></div></div>
+  <div class="card jobcard rv"><canvas data-icon="t1"></canvas><b>truck job</b><small>$100 to $500</small><div class="n"><span>recent</span><b data-jn="1">—</b></div></div>
+  <div class="card jobcard rv"><canvas data-icon="t2"></canvas><b>bank job</b><small>$500 to $2.5K</small><div class="n"><span>recent</span><b data-jn="2">—</b></div></div>
+  <div class="card jobcard rv"><canvas data-icon="t3"></canvas><b>casino job</b><small>$2.5K and up</small><div class="n"><span>recent</span><b data-jn="3">—</b></div></div>
  </div>
 </section>
 
 <section class="sec wrap" id="heat">
- <div class="rv"><div class="lab">02 · heat</div><h2>sells bring <em style="color:var(--star)">stars</em>.</h2><p class="lede">heat is the last hour: buys against sells. the more people sell, the more stars.</p></div>
+ <div class="rv"><div class="lab">03 · heat</div><h2>sells bring <em style="color:var(--star)">stars</em>.</h2><p class="lede">heat is the last hour on the main pair: buys against sells. more sells, more stars.</p></div>
  <div class="card heatbox rv">
   <div>
    <span class="stars big" data-stars></span>
@@ -278,76 +578,139 @@ footer .links a[aria-disabled=true]{opacity:.4;pointer-events:none}
    <div class="rule" data-rule="5"><div class="s">5★</div><div><b>lockdown</b><small>no payday until the heat cools.</small></div></div>
   </div>
  </div>
+ <div class="mini4 rv">
+  <div class="card"><small>24h jobs</small><b data-k="b24">—</b><span>buys</span></div>
+  <div class="card"><small>24h cop calls</small><b data-k="s24">—</b><span>sells</span></div>
+  <div class="card"><small>last hour</small><b data-k="chg1">—</b><span>price change</span></div>
+  <div class="card"><small>last 24h</small><b data-k="chg24">—</b><span>price change</span></div>
+ </div>
 </section>
 
 <section class="sec wrap" id="safehouse">
- <div class="rv"><div class="lab">03 · safehouse</div><h2>fees stack in the <em>safehouse</em>.</h2><p class="lede">one public wallet. every fee in and every payday out is on chain.</p></div>
- <div class="safe">
-  <div class="card vault rv">
-   <div class="big" data-k="vbal">—</div>
-   <div class="usd" data-k="vusd">&nbsp;</div>
+ <div class="rv"><div class="lab">04 · the money</div><h2>where the <em>bandz</em> go.</h2><p class="lede">no team cut and no middle wallet. fees go one way: into the safehouse, then out to the crew.</p></div>
+ <div class="flow rv"><div class="runner" aria-hidden="true"></div>
+  <div class="f"><small>01</small><b>trades</b><span>every buy and sell on pump.fun pays the coin's creator fee.</span><div class="v"><span data-k="vol" style="display:inline;margin:0;color:var(--ink);font:inherit">—</span><small>24h volume</small></div></div>
+  <div class="f"><small>02</small><b>safehouse</b><span>the fees are claimed into one public wallet.</span><div class="v"><span data-k="bal" style="display:inline;margin:0;color:var(--ink);font:inherit">—</span><small>in the safehouse</small></div></div>
+  <div class="f"><small>03</small><b>payday</b><span>at 0★, at most once every <span data-k="every" style="display:inline;margin:0">few</span> hours.</span><div class="v"><small style="margin:0 6px 0 0">last</small><span data-k="vlast" style="display:inline;margin:0;color:var(--ink);font:inherit">—</span></div></div>
+  <div class="f"><small>04</small><b>crew</b><span>every wallet over the floor, split by bag size.</span><div class="v"><span data-k="crew" style="display:inline;margin:0;color:var(--ink);font:inherit">—</span><small>wallets</small></div></div>
+ </div>
+</section>
+
+<section class="sec wrap" id="ranks">
+ <div class="rv"><div class="lab">05 · ranks</div><h2>rookie to <em>boss</em>.</h2><p class="lede">every crew member has a rank, set by bag size. counts are live from the chain.</p></div>
+ <div class="ranks">
+  <div class="card rank rv"><canvas data-icon="r1"></canvas><small>rank 1</small><b>rookie</b><span>the floor to 1M bandz</span><div class="n"><span>in the crew</span><b data-rk="rookie">—</b></div></div>
+  <div class="card rank rv"><canvas data-icon="r2"></canvas><small>rank 2</small><b>soldier</b><span>1M to 5M bandz</span><div class="n"><span>in the crew</span><b data-rk="soldier">—</b></div></div>
+  <div class="card rank rv"><canvas data-icon="r3"></canvas><small>rank 3</small><b>capo</b><span>5M to 20M bandz</span><div class="n"><span>in the crew</span><b data-rk="capo">—</b></div></div>
+  <div class="card rank rv"><canvas data-icon="r4"></canvas><small>rank 4</small><b>boss</b><span>20M bandz and up</span><div class="n"><span>in the crew</span><b data-rk="boss">—</b></div></div>
+ </div>
+</section>
+
+<section class="sec wrap" id="payday">
+ <div class="rv"><div class="lab">06 · payday</div><h2>what's <em>your cut</em>?</h2><p class="lede">payday splits the pot by bag size. type a bag and see what it would take home if payday ran right now.</p></div>
+ <div class="calc">
+  <div class="card rv">
+   <div class="formula">
+    <b>pot</b> = safehouse − 0.02 sol<br>
+    <b>your cut</b> = pot × <em>your bag</em> ÷ crew bags<br>
+    <b>crew</b> = every wallet with ≥ <span data-k="floor">—</span> bandz<br>
+    <b>when</b> = 0★ heat, at most every <span data-k="every">few</span>h
+   </div>
    <div class="kv">
-    <span>wallet</span><b data-k="vwallet">—</b>
-    <span>last payday</span><b data-k="vlast">—</b>
-    <span>paid out</span><b data-k="vpaid">—</b>
-    <span>payday every</span><b data-k="vevery">—</b>
+    <span>safehouse now</span><b data-k="bal">—</b>
+    <span>crew wallets</span><b data-k="crew">—</b>
+    <span>crew bags</span><b data-k="crewheld">—</b>
+    <span>heat now</span><b data-k="heatshort">—</b>
    </div>
   </div>
-  <div class="card ledger rv" id="ledger"><div class="empty">reading the safehouse…</div></div>
- </div>
-</section>
-
-<section class="sec wrap" id="crew">
- <div class="rv"><div class="lab">04 · crew</div><h2>hold bandz. <em>get paid</em>.</h2><p class="lede">every wallet holding the floor is crew. payday splits the safehouse by bag size.</p></div>
- <div class="crewtop rv"><div><b data-k="ccount">—</b>crew</div><div><b data-k="cholders">—</b>holders</div><div><b data-k="cmin">—</b>floor</div></div>
- <div class="grid2">
-  <div class="card list rv" id="members"><div class="empty">reading the crew…</div></div>
-  <div>
-   <div class="card check rv">
-    <h3>are you crew?</h3>
-    <div class="field"><input id="addr" placeholder="your solana wallet" autocomplete="off" spellcheck="false" aria-label="wallet address"><button class="pill cream sm" id="look">check</button></div>
-    <button class="pill ghost sm" id="connect" style="align-self:flex-start">connect wallet</button>
-    <div class="res" id="res">paste a wallet to see your bag, your rank and your cut.</div>
-   </div>
-   <div class="card" id="boss">
-    <h3>payday</h3>
-    <div style="color:var(--mute);font-size:13.5px">you're on the safehouse wallet.</div>
-    <div class="kv" id="bosskv"></div>
-    <div class="why" id="bosswhy"></div>
-    <div class="acts"><button class="pill cream sm" id="pay" disabled>pay the crew</button><button class="pill ghost sm" id="csv">payroll .csv</button></div>
-    <ol id="paylog"></ol>
+  <div class="card rv">
+   <label for="bag">YOUR BAG (BANDZ)</label>
+   <div class="field"><input id="bag" inputmode="decimal" placeholder="1000000" autocomplete="off"></div>
+   <div class="chips"><button data-bag="100000">100K</button><button data-bag="1000000">1M</button><button data-bag="5000000">5M</button><button data-bag="20000000">20M</button></div>
+   <div class="out">
+    <span>crew?</span><b data-c="crew">—</b>
+    <span>rank</span><b data-c="rank">—</b>
+    <span>share of the crew</span><b data-c="share">—</b>
+    <span>pot right now</span><b data-c="pot">—</b>
+    <span>your cut</span><b class="cut" data-c="cut">—</b>
    </div>
   </div>
  </div>
 </section>
 
-<section class="sec wrap" id="how">
- <div class="rv"><div class="lab">05 · how</div><h2>four rules.</h2></div>
+<section class="sec wrap" id="boards">
+ <div class="rv"><div class="lab">07 · boards</div><h2>big jobs. <em style="color:var(--red)">most wanted.</em></h2><p class="lede">from the last 60 trades on the main pair.</p></div>
+ <div class="boards">
+  <div class="card board good rv"><h3>biggest jobs <small>buys</small></h3><div class="topjob" id="topjob"></div><div id="bbuy"><div class="empty">no jobs yet.</div></div></div>
+  <div class="card board bad rv"><h3>most wanted <small>sellers</small></h3><div class="posters" id="posters"></div><div id="bsell"><div class="empty">no one yet.</div></div></div>
+ </div>
+</section>
+
+<div class="bigt rv" aria-hidden="true"><div class="bigrun r"><span class="o">0★ payday</span><i>✦</i><span>5★ lockdown</span><i>✦</i><span class="o">hold the floor</span><i>✦</i><span>the city never sleeps</span><i>✦</i><span class="o">0★ payday</span><i>✦</i><span>5★ lockdown</span><i>✦</i><span class="o">hold the floor</span><i>✦</i><span>the city never sleeps</span><i>✦</i></div></div>
+
+<section class="sec wrap" id="buy">
+ <div class="rv"><div class="lab">08 · how to buy</div><h2>join in <em>four steps</em>.</h2></div>
  <div class="how">
-  <div class="card step rv"><div class="n">01</div><canvas data-icon="buy"></canvas><b>buy</b><small>a getaway car pulls a job.</small></div>
-  <div class="card step rv"><div class="n">02</div><canvas data-icon="sell"></canvas><b>sell</b><small>cops show up. heat goes up.</small></div>
-  <div class="card step rv"><div class="n">03</div><canvas data-icon="safe"></canvas><b>stack</b><small>fees go to the safehouse.</small></div>
-  <div class="card step rv"><div class="n">04</div><canvas data-icon="pay"></canvas><b>payday</b><small>0★ and the crew gets paid in sol.</small></div>
+  <div class="card step rv"><div class="n">01</div><b>get a wallet</b><small>phantom, solflare or backpack. free, and you hold the keys.</small></div>
+  <div class="card step rv"><div class="n">02</div><b>add sol</b><small>buy sol in the wallet or send it from an exchange.</small></div>
+  <div class="card step rv"><div class="n">03</div><b>buy bandz</b><small>open pump.fun, paste the contract address and buy. that's your first job.</small><div class="ca mini" style="margin-top:12px"><span data-k="ca3">—</span><button data-copy="ca">copy</button></div></div>
+  <div class="card step rv"><div class="n">04</div><b>hold the floor</b><small>keep at least <span data-k="floor">—</span> bandz and you're crew for the next payday.</small></div>
+ </div>
+</section>
+
+<section class="sec wrap" id="rules">
+ <div class="rv"><div class="lab">09 · the rules</div><h2>what the city <em>can't</em> do.</h2></div>
+ <div class="card cant rv">
+  <div class="tr th"><div>it cannot</div><div>so</div></div>
+  <div class="tr"><div>hold your money</div><div>you trade on pump.fun with your own wallet. the site never touches your funds.</div></div>
+  <div class="tr"><div>pick who gets paid</div><div>the crew list is read from the chain: every wallet over the floor, by bag size.</div></div>
+  <div class="tr"><div>count pools or curves</div><div>bonding curves, pools and the safehouse itself are skipped. only real wallets are crew.</div></div>
+  <div class="tr"><div>pay at high heat</div><div>payday only opens at 0★, and at 5★ the city is in lockdown.</div></div>
+  <div class="tr"><div>fake a number</div><div>every figure is live from dexscreener, geckoterminal or solana. no data shows as a dash.</div></div>
+ </div>
+</section>
+
+<section class="sec wrap" id="words">
+ <div class="rv"><div class="lab">10 · street talk</div><h2>the words.</h2></div>
+ <div class="gloss">
+  <div class="rv"><b>bandz</b><span>the coin. also the cash that flies out of every job.</span></div>
+  <div class="rv"><b>job</b><span>a buy. store, truck, bank or casino, by size.</span></div>
+  <div class="rv"><b>cops</b><span>a sell. sirens on the street, heat goes up.</span></div>
+  <div class="rv"><b>heat</b><span>0 to 5 stars from the last hour's buys and sells.</span></div>
+  <div class="rv"><b>lockdown</b><span>5 stars. payday is frozen until the heat cools.</span></div>
+  <div class="rv"><b>safehouse</b><span>the public wallet that stacks the coin's fees.</span></div>
+  <div class="rv"><b>crew</b><span>every wallet holding at least the floor.</span></div>
+  <div class="rv"><b>floor</b><span>the smallest bag that counts as crew.</span></div>
+  <div class="rv"><b>payday</b><span>the safehouse paying the crew in sol, by bag size.</span></div>
+  <div class="rv"><b>pot</b><span>what payday splits: the safehouse minus 0.02 sol for fees.</span></div>
+  <div class="rv"><b>hq</b><span>the full board: live jobs, ledger, crew list and payday.</span></div>
+  <div class="rv"><b>—</b><span>no data yet. a dash never means zero.</span></div>
  </div>
 </section>
 
 <section class="sec wrap" id="faq">
- <div class="rv"><div class="lab">06 · faq</div><h2>questions.</h2></div>
+ <div class="rv"><div class="lab">11 · faq</div><h2>questions.</h2></div>
  <div class="faq rv">
   <details><summary>what is bandz?</summary><p>a coin with a city. every buy pulls a job, every sell brings cops, and the coin's fees stack in a safehouse that pays the crew.</p></details>
+  <details><summary>how do i join the crew?</summary><p>buy and hold at least the floor of <span data-k="floor">—</span> bandz. no sign up, no form. the crew list is read straight from the chain.</p></details>
   <details><summary>when is payday?</summary><p>when the heat is 0★: the last hour had clearly more buys than sells, or it was quiet. at most once every <span data-k="every">few</span> hours.</p></details>
-  <details><summary>who gets paid?</summary><p>every wallet holding at least the floor of <span data-k="floor">—</span> bandz, split by bag size. pools, bonding curves and the safehouse itself never count.</p></details>
-  <details><summary>how is it paid?</summary><p>in sol, straight from the safehouse wallet to yours. every payday is a public transaction listed under safehouse.</p></details>
+  <details><summary>how is it paid?</summary><p>in sol, straight from the safehouse wallet to yours. every payday is a public transaction you can open in the hq.</p></details>
   <details><summary>what is lockdown?</summary><p>5★. so many sells that the city is locked down. no payday until the heat cools.</p></details>
   <details><summary>where do the numbers come from?</summary><p>dexscreener for price and heat, geckoterminal for jobs, solana itself for the safehouse and the crew. a dash means no data yet. it never means zero.</p></details>
  </div>
 </section>
+
+<section class="wrap">
+ <div class="cta rv"><canvas id="ctaart"></canvas><div class="in2"><h2 class="wm">get in the crew.</h2><p>hold the floor. keep the heat low. get paid.</p><div class="acts"><a class="pill cream" data-buy href="#" aria-disabled="true" target="_blank" rel="noopener">buy on pump.fun</a><a class="pill ghost" href="/hq">enter the hq</a><a class="pill ghost" href="https://x.com/intent/post?text=buys%20drop%20bandz.%20sells%20bring%20cops.%20bandzsol.vercel.app" target="_blank" rel="noopener">post it</a></div></div></div>
+</section>
 </main>
 
-<footer><div class="wrap">
- <div><div class="wm">bandz</div><div class="mono" style="margin-top:14px;color:var(--dim);font-size:12px" data-k="ca2">—</div></div>
- <div class="links"><a data-buy href="#" aria-disabled="true" target="_blank" rel="noopener">pump.fun</a><a data-chart href="#" aria-disabled="true" target="_blank" rel="noopener">dexscreener</a><a data-scan href="#" aria-disabled="true" target="_blank" rel="noopener">solscan</a></div>
-</div></footer>
+<footer><canvas id="footart" aria-hidden="true"></canvas><div class="wrap fgrid">
+ <div><div class="wm">bandz</div><p>buys drop bandz. sells bring cops.</p><div class="ca"><span data-k="ca2">—</span><button data-copy="ca">copy</button></div></div>
+ <div class="col"><h4>the city</h4><a href="/#story">story</a><a href="/#jobs">jobs</a><a href="/#heat">heat</a><a href="/#payday">your cut</a><a href="/#faq">faq</a></div>
+ <div class="col"><h4>hq</h4><a href="/hq#jobs">live feed</a><a href="/hq#safehouse">safehouse</a><a href="/hq#crew">crew</a><a href="/hq#crew">are you crew?</a></div>
+ <div class="col"><h4>on chain</h4><a data-buy href="#" aria-disabled="true" target="_blank" rel="noopener">pump.fun</a><a data-chart href="#" aria-disabled="true" target="_blank" rel="noopener">dexscreener</a><a data-scan href="#" aria-disabled="true" target="_blank" rel="noopener">solscan</a></div>
+</div><div class="wrap"><div class="fbot"><span>every number on this site is live. a dash means no data, never zero.</span><span>bandz</span></div></div></footer>
 <div class="toast" id="toast"></div>
 <script>
 (function(){
@@ -391,9 +754,23 @@ function ago(t){
 function dur(ms){ var m = Math.ceil(ms / 60000), h = Math.floor(m / 60); return h ? h + "h " + (m % 60) + "m" : m + "m"; }
 function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 function scan(kind, id){ return "https://solscan.io/" + kind + "/" + id; }
-function setK(k, html){ $$('[data-k="' + k + '"]').forEach(function(e){ e.innerHTML = html; }); }
+var NUMRE = /^([^0-9]*?)([0-9][0-9,]*\.?[0-9]*)([^0-9].*)?$/;
+function countUp(e, html){
+  var m = NUMRE.exec(html); if (!m || RM || /</.test(html)) { e.innerHTML = html; return; }
+  var pre = m[1], raw = m[2], post = m[3] || "", target = parseFloat(raw.replace(/,/g, "")), dec = (raw.split(".")[1] || "").length, comma = raw.indexOf(",") >= 0, t0 = performance.now();
+  if (!isFinite(target)) { e.innerHTML = html; return; }
+  e.dataset.cu = html;
+  (function tick(now){ if (e.dataset.cu !== html) return; var p = Math.min(1, (now - t0) / 900), v = target * (1 - Math.pow(1 - p, 3));
+    var str = comma ? v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec }) : v.toFixed(dec);
+    e.textContent = p < 1 ? pre + str + post : ""; if (p < 1) requestAnimationFrame(tick); else e.innerHTML = html; })(t0);
+}
+function setK(k, html){ $$('[data-k="' + k + '"]').forEach(function(e){ var old = e.dataset.cu || e.innerHTML; if (old === html) return;
+  if ((old === "—" || /reading/.test(old)) && html !== "—" && e.closest(".stat,.flow,.crewtop,.vault,.mini4")) { e.classList.remove("load"); countUp(e, html); return; }
+  delete e.dataset.cu; e.innerHTML = html; e.classList.remove("load");
+  if (old && old !== "—" && old.indexOf("reading") < 0 && html !== "—" && e.closest(".stat,.flow,.crewtop,.vault,.kv")) { e.classList.remove("fl"); void e.offsetWidth; e.classList.add("fl"); } }); }
 function toast(t){ var e = $("#toast"); e.textContent = t; e.classList.add("show"); clearTimeout(toast.h); toast.h = setTimeout(function(){ e.classList.remove("show"); }, 1800); }
 function copy(t){ if (!t) return; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function(){ toast("copied"); }, function(){ toast(t); }); }
+function on(sel, ev, fn){ var e = $(sel); if (e) e.addEventListener(ev, fn); }
 function J(u){ return fetch(u, { cache: "no-store" }).then(function(r){ return r.json().then(function(j){ if (!r.ok && !j.error) j.error = "unavailable"; return j; }); }); }
 
 /* ---------- base58 + the payday transaction ---------- */
@@ -541,6 +918,9 @@ function building(c, k, x, gy, w, h, t, alarm){
 /* ---------- the city ---------- */
 var cv = $("#city"), cx = cv.getContext("2d");
 var W = 0, H = 0, DPR = 1, G = null, BG = null, FG = null, TW = [], last = 0, T0 = performance.now(), raf = 0;
+var WX = { mode: "auto", drops: [], splash: [], flash: 0, nextBolt: 4, bolt: null };
+function wxLevel(){ if (WX.mode === "clear") return 0; if (WX.mode === "rain") return 2; if (WX.mode === "storm") return 3; var h = ST.market && ST.market.pair ? ST.market.pair.heat : 0; return h >= 5 ? 3 : h >= 3 ? 2 : h >= 1 ? 1 : 0; }
+var CL = [{ x: 0, y: 0.2, w: 260, v: 6, a: 0.10 }, { x: 500, y: 0.12, w: 340, v: 4, a: 0.07 }, { x: 900, y: 0.28, w: 200, v: 9, a: 0.08 }, { x: 1300, y: 0.08, w: 300, v: 3, a: 0.06 }];
 var cars = [], parts = [], labels = [], alarms = {}, heli1 = null, queue = [], nextPlay = 0;
 function rng(seed){ var s = seed % 2147483647; if (s <= 0) s += 2147483646; return function(){ s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
 function geo(){
@@ -565,14 +945,18 @@ function layer(c, R, base, minH, maxH, col, win, wop){
 }
 function prerender(){
   var R = rng(77), c; TW = [];
-  BG = document.createElement("canvas"); BG.width = W * DPR; BG.height = H * DPR; c = BG.getContext("2d"); c.scale(DPR, DPR);
+  BG = document.createElement("canvas"); BG.width = (W + 40) * DPR; BG.height = H * DPR; c = BG.getContext("2d"); c.scale(DPR, DPR); c.translate(20, 0);
   var g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#120a2e"); g.addColorStop(0.35, "#2b1259"); g.addColorStop(0.56, "#6a2277"); g.addColorStop(0.7, "#d84b78"); g.addColorStop(0.8, "#ff9a62"); g.addColorStop(1, "#ff9a62");
-  c.fillStyle = g; c.fillRect(0, 0, W, H);
+  c.fillStyle = g; c.fillRect(-20, 0, W + 40, H);
   for (var i = 0; i < W / 18; i++) { c.globalAlpha = 0.2 + R() * 0.5; c.fillStyle = "#fff"; c.fillRect(R() * W, R() * H * 0.42, 1.5, 1.5); } c.globalAlpha = 1;
+  var mx = W * (W < 640 ? 0.8 : 0.8), my = H * (W < 640 ? 0.535 : 0.22), mr = Math.max(13, Math.min(30, H * 0.032));
+  var mg = c.createRadialGradient(mx, my, mr * 0.6, mx, my, mr * 5); mg.addColorStop(0, "rgba(255,236,214,.32)"); mg.addColorStop(1, "rgba(255,236,214,0)"); c.fillStyle = mg; c.fillRect(mx - mr * 5, my - mr * 5, mr * 10, mr * 10);
+  c.fillStyle = "#fff1dc"; c.beginPath(); c.arc(mx, my, mr, 0, 7); c.fill();
+  c.fillStyle = "rgba(214,190,200,.45)"; [[-0.3, -0.2, 0.22], [0.25, 0.15, 0.16], [-0.05, 0.4, 0.12]].forEach(function(q){ c.beginPath(); c.arc(mx + q[0] * mr, my + q[1] * mr, q[2] * mr, 0, 7); c.fill(); });
   var sg = c.createRadialGradient(W / 2, G.base + 10, 0, W / 2, G.base + 10, Math.max(W, H) * 0.55);
-  sg.addColorStop(0, "rgba(255,213,154,.8)"); sg.addColorStop(0.3, "rgba(255,143,107,.35)"); sg.addColorStop(1, "rgba(255,106,138,0)"); c.fillStyle = sg; c.fillRect(0, 0, W, H);
+  sg.addColorStop(0, "rgba(255,213,154,.8)"); sg.addColorStop(0.3, "rgba(255,143,107,.35)"); sg.addColorStop(1, "rgba(255,106,138,0)"); c.fillStyle = sg; c.fillRect(-20, 0, W + 40, H);
   layer(c, R, G.base, 40, 190, "#5b2a73", false, 0);
-  var hz = c.createLinearGradient(0, G.base - 200, 0, G.walk); hz.addColorStop(0, "rgba(255,138,116,0)"); hz.addColorStop(1, "rgba(255,138,116,.32)"); c.fillStyle = hz; c.fillRect(0, G.base - 200, W, G.walk - G.base + 200);
+  var hz = c.createLinearGradient(0, G.base - 200, 0, G.walk); hz.addColorStop(0, "rgba(255,138,116,0)"); hz.addColorStop(1, "rgba(255,138,116,.32)"); c.fillStyle = hz; c.fillRect(-20, G.base - 200, W + 40, G.walk - G.base + 200);
   layer(c, R, G.walk - 6, 30, 160, "#2c1446", true, 0.07);
   FG = document.createElement("canvas"); FG.width = W * DPR; FG.height = H * DPR; c = FG.getContext("2d"); c.scale(DPR, DPR);
   // street-level row, leaving room for the job buildings
@@ -589,11 +973,21 @@ function prerender(){
   var rg = c.createLinearGradient(0, G.road, 0, H); rg.addColorStop(0, "#1a1030"); rg.addColorStop(1, "#0e0820"); c.fillStyle = rg; c.fillRect(0, G.road, W, H - G.road);
   c.fillStyle = "rgba(255,244,226,.22)"; var mid = (G.far + G.near) / 2 + 2;
   for (var dx = 0; dx < W; dx += 46) c.fillRect(dx, mid, 22, 2);
+  var lk = Math.max(0.6, G.k), lh = 74 * lk, step = 190 * Math.max(0.75, G.k);
+  for (var lx = step * 0.5; lx < W; lx += step) {
+    var top = G.road - lh;
+    var lg = c.createRadialGradient(lx + 9 * lk, top + 3, 0, lx + 9 * lk, top + 3, 46 * lk); lg.addColorStop(0, "rgba(255,214,150,.55)"); lg.addColorStop(1, "rgba(255,214,150,0)"); c.fillStyle = lg; c.fillRect(lx - 50 * lk, top - 44 * lk, 110 * lk, 96 * lk);
+    var cg = c.createLinearGradient(0, top, 0, G.road + 6); cg.addColorStop(0, "rgba(255,214,150,.20)"); cg.addColorStop(1, "rgba(255,214,150,0)"); c.fillStyle = cg;
+    c.beginPath(); c.moveTo(lx + 5 * lk, top + 4); c.lineTo(lx + 13 * lk, top + 4); c.lineTo(lx + 34 * lk, G.road + 6); c.lineTo(lx - 16 * lk, G.road + 6); c.closePath(); c.fill();
+    c.fillStyle = "#0f0820"; c.fillRect(lx - 1.5 * lk, top, 3 * lk, lh); c.fillRect(lx - 1.5 * lk, top, 14 * lk, 2.5 * lk);
+    c.fillStyle = "#ffe6b0"; c.fillRect(lx + 5 * lk, top + 2, 8 * lk, 3 * lk);
+  }
   var rf = c.createLinearGradient(0, G.road, 0, H); rf.addColorStop(0, "rgba(255,154,98,.12)"); rf.addColorStop(1, "rgba(255,154,98,0)"); c.fillStyle = rf; c.fillRect(0, G.road, W, H - G.road);
 }
 function resize(){
   var r = cv.getBoundingClientRect(); W = Math.max(320, Math.round(r.width)); H = Math.max(400, Math.round(r.height));
   DPR = Math.min(2, window.devicePixelRatio || 1); cv.width = W * DPR; cv.height = H * DPR; G = geo(); prerender();
+  CL.forEach(function(k, i){ if (k.y < 1) k.y = k.y * H; k.w = [260, 340, 200, 300][i] * Math.max(0.6, W / 1400); });
   if (!cars.length) for (var i = 0; i < 4; i++) cars.push(traffic(i % 2, W * (0.1 + 0.25 * i)));
   draw(0);
 }
@@ -638,7 +1032,27 @@ function ambientCops(){
   if (h >= 4 && !heli1) heli1 = { x: W * 0.2, y: H * 0.26, v: 22, hover: true };
   if (h < 4 && heli1 && heli1.hover) heli1.hover = false;
 }
+function stepWx(dt){
+  var lvl = wxLevel(), want = Math.round([0, 70, 170, 280][lvl] * Math.max(0.5, W / 1400)), d = WX.drops;
+  while (d.length < want) d.push({ x: Math.random() * (W + 200) - 100, y: Math.random() * H * -1, v: 700 + Math.random() * 500, l: 10 + Math.random() * 14, g: G.road + Math.random() * (H - G.road) });
+  if (d.length > want) d.length = want;
+  d.forEach(function(r){ r.y += r.v * dt; r.x -= r.v * dt * 0.18; if (r.y > r.g) { if (WX.splash.length < 90) WX.splash.push({ x: r.x, y: r.g, a: 0 }); r.y = -20 - Math.random() * 200; r.x = Math.random() * (W + 200) - 50; r.g = G.road + Math.random() * (H - G.road); } });
+  for (var i = WX.splash.length - 1; i >= 0; i--) { WX.splash[i].a += dt * 3; if (WX.splash[i].a >= 1) WX.splash.splice(i, 1); }
+  WX.flash = Math.max(0, WX.flash - dt * 2.4);
+  if (lvl === 3) { WX.nextBolt -= dt; if (WX.nextBolt <= 0) { WX.flash = 1; WX.nextBolt = 4 + Math.random() * 6; var bx = W * (0.15 + Math.random() * 0.7), pts = [[bx, 0]], y = 0; while (y < G.base - 40) { y += 18 + Math.random() * 30; pts.push([pts[pts.length - 1][0] + (Math.random() - 0.5) * 50, y]); } WX.bolt = { pts: pts, a: 1 }; } }
+  if (WX.bolt) { WX.bolt.a -= dt * 3; if (WX.bolt.a <= 0) WX.bolt = null; }
+}
+function drawWxBack(c){
+  var lvl = wxLevel(); if (lvl) { c.fillStyle = "rgba(14,8,32," + (0.08 * lvl) + ")"; c.fillRect(0, 0, W, G.walk); }
+  if (WX.bolt) { c.save(); c.globalAlpha = Math.max(0, WX.bolt.a); c.strokeStyle = "#f4ecff"; c.lineWidth = 2.2; c.shadowColor = "#c9b6ff"; c.shadowBlur = 18; c.beginPath(); WX.bolt.pts.forEach(function(p, i){ c[i ? "lineTo" : "moveTo"](p[0], p[1]); }); c.stroke(); c.restore(); }
+}
+function drawWxFront(c){
+  if (WX.drops.length) { c.strokeStyle = "rgba(205,195,255,.32)"; c.lineWidth = 1; c.beginPath(); WX.drops.forEach(function(r){ c.moveTo(r.x, r.y); c.lineTo(r.x + r.l * 0.18, r.y - r.l); }); c.stroke();
+    c.strokeStyle = "rgba(205,195,255,.35)"; WX.splash.forEach(function(p){ c.globalAlpha = 1 - p.a; c.beginPath(); c.ellipse(p.x, p.y, 2 + p.a * 7, 0.6 + p.a * 1.8, 0, 0, 7); c.stroke(); }); c.globalAlpha = 1; }
+  if (WX.flash > 0) { c.fillStyle = "rgba(235,225,255," + (WX.flash * 0.28) + ")"; c.fillRect(0, 0, W, H); }
+}
 function step(dt){
+  stepWx(dt);
   var t = (performance.now() - T0) / 1000;
   ambientCops();
   for (var i = cars.length - 1; i >= 0; i--) {
@@ -658,10 +1072,15 @@ function step(dt){
 function draw(t){
   if (!G || !BG) return;
   var c = cx; c.setTransform(DPR, 0, 0, DPR, 0, 0);
-  c.drawImage(BG, 0, 0, W, H);
-  TW.forEach(function(w){ var a = 0.35 + 0.65 * Math.max(0, Math.sin(t * 0.7 + w[3] * 3)); c.globalAlpha = a; c.fillStyle = w[2] ? "#ffe2a0" : "#9ff7da"; c.fillRect(w[0], w[1], 4, 5); }); c.globalAlpha = 1;
+  MX += (MXT - MX) * 0.05; var ox = -20 - MX * 14;
+  c.drawImage(BG, ox, 0, W + 40, H);
+  c.save(); c.translate(ox + 20, 0);
+  TW.forEach(function(w){ var a = 0.35 + 0.65 * Math.max(0, Math.sin(t * 0.7 + w[3] * 3)); c.globalAlpha = a; c.fillStyle = w[2] ? "#ffe2a0" : "#9ff7da"; c.fillRect(w[0], w[1], 4, 5); }); c.globalAlpha = 1; c.restore();
+  CL.forEach(function(k){ var x = ((k.x + t * k.v) % (W + k.w * 2)) - k.w, g = c.createRadialGradient(x, k.y, 0, x, k.y, k.w); g.addColorStop(0, "rgba(255,170,200," + k.a + ")"); g.addColorStop(1, "rgba(255,170,200,0)"); c.save(); c.translate(x, k.y); c.scale(1, 0.18); c.translate(-x, -k.y); c.fillStyle = g; c.fillRect(x - k.w, k.y - k.w, k.w * 2, k.w * 2); c.restore(); });
+  drawWxBack(c);
   if (heli1) heli1Draw(c, t);
   c.drawImage(FG, 0, 0, W, H);
+  G.b.forEach(function(b){ if (b.k === 0) return; var col = b.k === 3 ? "255,92,138" : "255,211,107", f = b.k === 3 ? 0.75 + 0.25 * Math.sin(t * 5) : 0.6, rw = b.w * 0.42, rh = H - G.road, g = c.createRadialGradient(b.x, G.road, 0, b.x, G.road, rw); g.addColorStop(0, "rgba(" + col + "," + (0.2 * f) + ")"); g.addColorStop(1, "rgba(" + col + ",0)"); c.save(); c.translate(b.x, G.road); c.scale(1, rh / rw); c.translate(-b.x, -G.road); c.fillStyle = g; c.fillRect(b.x - rw, G.road, rw * 2, rw); c.restore(); });
   G.b.forEach(function(b){ building(c, b.k, b.x, G.walk, b.w, b.h, t, alarms[b.k] ? 3.2 - alarms[b.k] : 0); });
   var sorted = cars.slice().sort(function(a, b){ return a.lane - b.lane; });
   sorted.forEach(function(v){ var s = Math.max(0.62, G.k), o = { kind: v.kind, dir: v.dir, len: v.len * s, col: v.col }; vehicle(c, o, v.x, laneY(v.lane), t); });
@@ -671,23 +1090,27 @@ function draw(t){
     c.globalAlpha = a; c.font = "700 " + Math.round(13 + 3 * Math.min(1, G.k)) + "px JetBrains Mono, monospace"; c.textAlign = "center";
     var w = c.measureText(l.text).width + 18, lx = Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, l.x)); c.fillStyle = "rgba(14,8,32,.78)"; rr(c, lx - w / 2, y - 15, w, 24, 12); c.fill();
     c.fillStyle = l.col; c.fillText(l.text, lx, y + 2); c.globalAlpha = 1; });
+  drawWxFront(c);
   var h = ST.market && ST.market.pair ? ST.market.pair.heat : 0;
   if (h >= 5) { var pv = 0.14 + 0.08 * Math.sin(t * 3); var vg = c.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.35, W / 2, H / 2, Math.max(W, H) * 0.75); vg.addColorStop(0, "rgba(255,40,70,0)"); vg.addColorStop(1, "rgba(255,40,70," + pv + ")"); c.fillStyle = vg; c.fillRect(0, 0, W, H); }
 }
 function heli1Draw(c, t){ var s = 14 * Math.max(0.7, G.k), beam = heli1.hover ? W * 0.5 + Math.sin(t * 0.6) * W * 0.3 : heli1.x + 40; heli(c, heli1.x, heli1.y + Math.sin(t * 2) * 4, s, t, beam); }
 function frame(now){
-  raf = 0; if (document.hidden) return;
+  raf = 0; if (document.hidden || !heroVis) return;
   var dt = Math.min(0.05, (now - (last || now)) / 1000); last = now;
   if (queue.length && now > nextPlay) { var q = queue.shift(); q(); nextPlay = now + 1400; }
   step(dt); draw((now - T0) / 1000); raf = requestAnimationFrame(frame);
 }
-function start(){ if (!raf && !RM) { last = 0; raf = requestAnimationFrame(frame); } }
+var heroVis = true;
+function start(){ if (!raf && !RM && heroVis) { last = 0; raf = requestAnimationFrame(frame); } }
+if ("IntersectionObserver" in window) new IntersectionObserver(function(es){ heroVis = es[0].isIntersecting; if (heroVis) start(); }).observe(cv);
 document.addEventListener("visibilitychange", function(){ if (!document.hidden) start(); });
 window.addEventListener("resize", function(){ clearTimeout(resize.h); resize.h = setTimeout(resize, 120); });
 cv.addEventListener("click", function(e){
   var r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
   G.b.forEach(function(b){ if (Math.abs(x - b.x) < b.w / 2 && y > G.walk - b.h && y < G.walk) playJob(b.k === 0 ? 0 : b.k === 2 ? 2 : 3, "you · " + JOBS[b.k === 0 ? 0 : b.k], true); });
 });
+document.addEventListener("keydown", function(e){ var t = e.target && e.target.tagName; if (t === "INPUT" || t === "TEXTAREA" || e.metaKey || e.ctrlKey || e.altKey) return; var k = "1234".indexOf(e.key); if (k >= 0) playJob(k, "you · " + JOBS[k] + " job", true); });
 $$("#plan button").forEach(function(b){ b.addEventListener("click", function(){ var k = +b.dataset.job; playJob(k, "you · " + JOBS[k] + " job", true); }); });
 
 /* ---------- live data ---------- */
@@ -711,24 +1134,27 @@ function renderMarket(){
   var m = ST.market, p = m && m.pair;
   if (!p) { stars(null); setK("heatnow", m && m.error ? "heat unavailable right now" : "—"); setK("heatword", "heat"); $$(".rule").forEach(function(r){ r.classList.remove("on"); }); srcLine(); links(); return; }
   var ch = p.chg == null ? "" : " <span class=\"" + (p.chg >= 0 ? "up" : "dn") + "\">" + (p.chg >= 0 ? "+" : "") + p.chg.toFixed(1) + "%</span>";
-  setK("price", usd(p.price) + ch); setK("mcap", usd(p.mcap)); setK("vol", usd(p.vol));
-  stars(p.heat);
+  setK("price", usd(p.price) + ch); setK("mcap", usd(p.mcap)); setK("vol", usd(p.vol)); setK("liq", usd(p.liq));
+  setK("b24", p.h24 ? p.h24.buys.toLocaleString("en-US") : "—"); setK("s24", p.h24 ? p.h24.sells.toLocaleString("en-US") : "—");
+  var pc = function(v){ return v == null ? "—" : "<span class=\"" + (v >= 0 ? "up" : "dn") + "\">" + (v >= 0 ? "+" : "") + v.toFixed(1) + "%</span>"; };
+  setK("chg1", pc(p.chg1)); setK("chg24", pc(p.chg));
+  stars(p.heat); heatPulse(p.heat);
   var word = p.heat === 0 ? "payday open" : p.heat >= 5 ? "lockdown" : "cops around";
   setK("heatword", p.heat + "★ · " + word);
-  setK("heatnow", "<b>" + p.heat + "★</b> · " + word);
+  setK("heatnow", "<b>" + p.heat + "★</b> · " + word); setK("heatshort", p.heat + "★ · " + word);
   var t = p.h1.buys + p.h1.sells, bp = t ? p.h1.buys / t * 100 : 50;
   $('[data-k="bbar"]').style.width = bp + "%"; $('[data-k="sbar"]').style.width = (100 - bp) + "%";
   setK("buys", p.h1.buys + " buys"); setK("sells", p.h1.sells + " sells");
   $$(".rule").forEach(function(r){ var k = +r.dataset.rule; r.classList.toggle("on", p.heat === 0 ? k === 0 : p.heat >= 5 ? k === 5 : k === 1); });
-  srcLine(); links(); renderVault(); boss();
+  srcLine(); links(); renderVault(); boss(); calc();
 }
 var seen = {}, firstJobs = true;
 function renderJobs(){
-  var j = ST.jobs, box = $("#feed");
-  if (!ST.cfg || !ST.cfg.mint || !j || j.live === false) { box.innerHTML = "<div class=\"empty\">no jobs yet.</div>"; tiers([]); return; }
-  if (j.error) { if (!box.querySelector(".row")) box.innerHTML = "<div class=\"empty\">jobs unavailable right now</div>"; return; }
+  var j = ST.jobs, box = $("#feed") || document.createElement("div");
+  if (!ST.cfg || !ST.cfg.mint || !j || j.live === false) { box.innerHTML = "<div class=\"empty\">no jobs yet.</div>"; extras([], false); return; }
+  if (j.error) { if (!box.querySelector(".row")) box.innerHTML = "<div class=\"empty\">jobs unavailable right now</div>"; extras(null, true); return; }
   var rows = j.rows || [];
-  if (!rows.length) { box.innerHTML = "<div class=\"empty\">no jobs yet.</div>"; tiers([]); return; }
+  if (!rows.length) { box.innerHTML = "<div class=\"empty\">no jobs yet.</div>"; extras([], false); return; }
   var fresh = rows.filter(function(r){ return !seen[r.tx]; });
   var play = firstJobs ? fresh.filter(function(r){ return Date.now() - r.t < 15 * 60000; }).slice(0, 4) : fresh;
   play.slice().reverse().forEach(function(r){ queue.push(function(){ if (r.k === "buy") playJob(tierBuy(r.usd), "+" + usd(r.usd) + (r.w ? " · " + short(r.w) : ""), false); else playCops(tierSell(r.usd), "-" + usd(r.usd)); }); });
@@ -737,12 +1163,43 @@ function renderJobs(){
     var name = r.k === "buy" ? JOBS[tierBuy(r.usd)] + " job" : "cops";
     return "<div class=\"row " + r.k + (seen[r.tx] || firstJobs ? "" : " fresh") + "\"><div class=\"k\">" + name + "</div><div class=\"w\">" + (r.w ? "<a href=\"" + scan("account", r.w) + "\" target=\"_blank\" rel=\"noopener\">" + short(r.w) + "</a>" : "—") + " · " + amt(r.amt) + "</div><div class=\"usd\">" + (r.k === "buy" ? "+" : "-") + usd(r.usd) + "</div><div class=\"ago\"><a href=\"" + scan("tx", r.tx) + "\" target=\"_blank\" rel=\"noopener\">" + ago(r.t) + "</a></div></div>";
   }).join("");
-  rows.forEach(function(r){ seen[r.tx] = 1; }); firstJobs = false; tiers(rows);
+  rows.forEach(function(r){ seen[r.tx] = 1; }); firstJobs = false; extras(rows, false);
+}
+function extras(rows, err){
+  if (rows) tiers(rows);
+  var tape = $("#tape");
+  if (tape) {
+    if (err && !tape.querySelector(".run")) tape.innerHTML = "<div class=\"none\">jobs unavailable right now</div>";
+    else if (rows && !rows.length) tape.innerHTML = "<div class=\"none\">no jobs yet. the street is quiet.</div>";
+    else if (rows) {
+      var items = rows.slice(0, 24).map(function(r){ var b = r.k === "buy";
+        return "<span><b class=\"" + (b ? "b" : "s") + "\">" + (b ? JOBS[tierBuy(r.usd)] + " job " + "+" : "cops -") + usd(r.usd) + "</b> " + (r.w ? short(r.w) : "") + " <i>" + ago(r.t) + "</i></span>"; }).join("");
+      tape.innerHTML = "<div class=\"run\">" + items + items + "</div>";
+      var run = tape.querySelector(".run"); run.style.animationDuration = Math.max(30, rows.slice(0, 24).length * 4) + "s";
+    }
+  }
+  var bb = $("#bbuy"), bs = $("#bsell");
+  if (bb && rows) {
+    var buys = rows.filter(function(r){ return r.k === "buy"; }).sort(function(a, b){ return b.usd - a.usd; }).slice(0, 5);
+    bb.innerHTML = buys.length ? buys.map(function(r, i){ return "<div class=\"brow\"><span class=\"r\">" + (i + 1) + "</span><span>" + JOBS[tierBuy(r.usd)] + " job · " + (r.w ? "<a href=\"" + scan("account", r.w) + "\" target=\"_blank\" rel=\"noopener\">" + short(r.w) + "</a>" : "—") + "</span><b>+" + usd(r.usd) + "</b></div>"; }).join("") : "<div class=\"empty\">no jobs yet.</div>";
+    var tj = $("#topjob");
+    if (tj) { if (buys.length) { var b0 = buys[0], tr = tierBuy(b0.usd);
+      tj.innerHTML = "<canvas data-icon=\"t" + tr + "\"></canvas><div><small>job of the hour</small><b>+" + usd(b0.usd) + "</b><span>" + JOBS[tr] + " job · " + (b0.w ? short(b0.w) : "—") + " · " + ago(b0.t) + "</span></div>";
+      icon(tj.querySelector("canvas"), "t" + tr); } else tj.innerHTML = ""; }
+    var by = {}; rows.forEach(function(r){ if (r.k === "sell" && r.w) by[r.w] = (by[r.w] || 0) + r.usd; });
+    var top = Object.keys(by).map(function(w){ return [w, by[w]]; }).sort(function(a, b){ return b[1] - a[1]; }).slice(0, 5);
+    var pz = $("#posters");
+    if (pz) { pz.innerHTML = top.slice(0, 3).map(function(x, i){ return "<a class=\"poster\" href=\"" + scan("account", x[0]) + "\" target=\"_blank\" rel=\"noopener\"><canvas data-w=\"" + x[0] + "\" data-u=\"" + x[1] + "\" data-i=\"" + i + "\"></canvas></a>"; }).join("") || "";
+      $$("#posters canvas").forEach(function(cv){ poster(cv, cv.dataset.w, +cv.dataset.u, +cv.dataset.i); }); }
+    bs.innerHTML = top.length ? top.map(function(x, i){ return "<div class=\"brow\"><span class=\"r\">" + (i + 1) + "</span><span>" + (i === 0 ? "★★★★★ " : "") + "<a href=\"" + scan("account", x[0]) + "\" target=\"_blank\" rel=\"noopener\">" + short(x[0]) + "</a></span><b>-" + usd(x[1]) + "</b></div>"; }).join("") : "<div class=\"empty\">no one yet.</div>";
+  } else if (bb && err) { if (!bb.querySelector(".brow")) { bb.innerHTML = "<div class=\"empty\">unavailable right now</div>"; bs.innerHTML = "<div class=\"empty\">unavailable right now</div>"; } }
 }
 var TIERS = [["store job", "under $100"], ["truck job", "$100 to $500"], ["bank job", "$500 to $2.5K"], ["casino job", "$2.5K and up"]];
 function tiers(rows){
   var box = $("#tiers"), n = [0, 0, 0, 0], have = rows && rows.length;
   (rows || []).forEach(function(r){ if (r.k === "buy") n[tierBuy(r.usd)]++; });
+  $$("[data-jn]").forEach(function(e){ var i = +e.dataset.jn; e.textContent = have ? n[i] : "—"; });
+  if (!box) return;
   if (!box.dataset.drawn) {
     box.innerHTML = TIERS.map(function(t, i){ return "<div class=\"tier\"><canvas data-tier=\"" + i + "\"></canvas><div><b>" + t[0] + "</b><small>" + t[1] + "</small></div><div class=\"n\" data-tn=\"" + i + "\">—</div></div>"; }).join("");
     box.dataset.drawn = 1; $$("canvas[data-tier]").forEach(function(c){ icon(c, "t" + c.dataset.tier); });
@@ -751,14 +1208,14 @@ function tiers(rows){
 }
 function lastPayday(){ var v = ST.vault; if (!v || !v.rows) return null; var p = v.rows.filter(function(r){ return r.n >= 1 && r.d < 0; }); return p.length ? p[0] : null; }
 function renderVault(){
-  var v = ST.vault, solp = ST.market && ST.market.pair && ST.market.pair.sol, box = $("#ledger");
+  var v = ST.vault, solp = ST.market && ST.market.pair && ST.market.pair.sol, box = $("#ledger") || document.createElement("div");
   setK("vevery", ST.cfg ? ST.cfg.every + "h at most" : "—"); setK("every", ST.cfg ? ST.cfg.every : "few");
   if (!ST.cfg || !ST.cfg.safehouse || !v || v.live === false) { setK("bal", "—"); setK("vbal", "—"); box.innerHTML = "<div class=\"empty\">no safehouse yet.</div>"; return; }
   if (v.error) { setK("bal", "—"); setK("vbal", "—"); if (!box.querySelector(".lrow")) box.innerHTML = "<div class=\"empty\">safehouse unavailable right now</div>"; return; }
   setK("bal", sol(v.bal, 2)); setK("vbal", sol(v.bal)); setK("vusd", solp ? "≈ " + usd(v.bal * solp) : "&nbsp;");
   setK("vwallet", "<a href=\"" + scan("account", v.wallet) + "\" target=\"_blank\" rel=\"noopener\">" + short(v.wallet) + "</a> <button class=\"pill ghost sm\" style=\"height:24px;padding:0 9px;font-size:11px\" data-copy=\"safe\">copy</button>");
   var lp = lastPayday(), paid = (v.rows || []).filter(function(r){ return r.n >= 1 && r.d < 0; }).reduce(function(s, r){ return s - r.d; }, 0);
-  setK("vlast", lp ? ago(lp.t * 1000) + " · " + lp.n + " crew" : "—");
+  setK("vlast", lp ? ago(lp.t * 1000) + " · " + lp.n + " crew" : "—"); setK("pot", sol(Math.max(0, v.bal - 0.02)));
   setK("vpaid", paid ? sol(paid) + " recent" : "—");
   var rows = v.rows || [];
   if (!rows.length) { box.innerHTML = "<div class=\"empty\">no transactions yet.</div>"; return; }
@@ -768,14 +1225,15 @@ function renderVault(){
   }).join("");
 }
 function renderCrew(){
-  var c = ST.crew, box = $("#members");
+  var c = ST.crew, box = $("#members") || document.createElement("div"); calc();
+  $$("[data-rk]").forEach(function(e){ var r = c && !c.error && c.live !== false && c.ranks ? c.ranks[e.dataset.rk] : null; e.textContent = r == null ? "—" : r.toLocaleString("en-US"); });
   setK("cmin", ST.cfg ? amt(ST.cfg.min) : "—"); setK("floor", ST.cfg ? amt(ST.cfg.min) : "—");
-  if (!ST.cfg || !ST.cfg.mint || !c || c.live === false) { setK("crew", "—"); box.innerHTML = "<div class=\"empty\">no crew yet.</div>"; return; }
-  if (c.error) { setK("crew", "—"); if (!box.querySelector(".mem")) box.innerHTML = "<div class=\"empty\">crew unavailable right now</div>"; return; }
-  setK("crew", c.count.toLocaleString("en-US")); setK("ccount", c.count.toLocaleString("en-US")); setK("cholders", c.holders.toLocaleString("en-US"));
+  if (!ST.cfg || !ST.cfg.mint || !c || c.live === false) { setK("crew", "—"); setK("holders", "—"); box.innerHTML = "<div class=\"empty\">no crew yet.</div>"; return; }
+  if (c.error) { setK("crew", "—"); setK("holders", "—"); if (!box.querySelector(".mem")) box.innerHTML = "<div class=\"empty\">crew unavailable right now</div>"; return; }
+  setK("crew", c.count.toLocaleString("en-US")); setK("holders", c.holders.toLocaleString("en-US")); setK("crewheld", amt(c.crewHeld) + " bandz"); setK("ccount", c.count.toLocaleString("en-US")); setK("cholders", c.holders.toLocaleString("en-US"));
   if (!c.top.length) { box.innerHTML = "<div class=\"empty\">no wallet holds the floor yet.</div>"; return; }
   box.innerHTML = c.top.map(function(m, i){ var sh = c.crewHeld ? m.amt / c.crewHeld : 0;
-    return "<div class=\"mem\"><div class=\"r\">" + (i + 1) + "</div><a href=\"" + scan("account", m.w) + "\" target=\"_blank\" rel=\"noopener\">" + short(m.w) + "</a><div class=\"a\">" + amt(m.amt) + "</div><div class=\"sh\"><i style=\"width:" + Math.max(2, Math.round(sh / (c.top[0].amt / c.crewHeld) * 100)) + "%\"></i></div></div>"; }).join("");
+    return "<div class=\"mem\"><div class=\"r\">" + (i + 1) + "</div><a href=\"" + scan("account", m.w) + "\" target=\"_blank\" rel=\"noopener\">" + short(m.w) + " <em class=\"rk " + rankOf(m.amt) + "\">" + rankOf(m.amt) + "</em></a><div class=\"a\">" + amt(m.amt) + "</div><div class=\"sh\"><i style=\"width:" + Math.max(2, Math.round(sh / (c.top[0].amt / c.crewHeld) * 100)) + "%\"></i></div></div>"; }).join("");
 }
 function load(name, url){ return J(url).then(function(j){ ST[name] = j; }, function(){ ST[name] = { error: "unavailable" }; }); }
 function tick(name){
@@ -800,10 +1258,10 @@ function check(w){
     else res.innerHTML = "<b class=\"no\">not crew yet.</b><br>you hold <b>" + amt(me.amt) + "</b> bandz. the floor is <b>" + amt(c.min) + "</b>.";
   }, function(){ res.innerHTML = "<span class=\"no\">crew unavailable right now</span>"; });
 }
-$("#look").addEventListener("click", function(){ check($("#addr").value); });
-$("#addr").addEventListener("keydown", function(e){ if (e.key === "Enter") check($("#addr").value); });
+on("#look", "click", function(){ check($("#addr").value); });
+on("#addr", "keydown", function(e){ if (e.key === "Enter") check($("#addr").value); });
 function provider(){ return (window.phantom && window.phantom.solana) || window.solana || window.solflare || (window.backpack && window.backpack.solana) || null; }
-$("#connect").addEventListener("click", function(){
+on("#connect", "click", function(){
   var p = provider(); if (!p) { toast("no solana wallet found"); return; }
   p.connect().then(function(r){ var pk = (r && r.publicKey) || p.publicKey; var w = pk && pk.toString(); if (!w) return;
     ST.wallet = w; ST.prov = p; $("#addr").value = w; $("#connect").textContent = short(w); check(w); boss(); }, function(){ toast("wallet not connected"); });
@@ -812,7 +1270,7 @@ $("#connect").addEventListener("click", function(){
 /* ---------- payday (safehouse wallet only) ---------- */
 var payroll = null, paying = false;
 function boss(){
-  var box = $("#boss"), on = !!(ST.wallet && ST.cfg && ST.cfg.safehouse && ST.wallet === ST.cfg.safehouse);
+  var box = $("#boss"); if (!box) return; var on = !!(ST.wallet && ST.cfg && ST.cfg.safehouse && ST.wallet === ST.cfg.safehouse);
   box.classList.toggle("show", on); if (!on) return;
   if (!payroll && !boss.loading) { boss.loading = 1; J("/api/payroll").then(function(p){ payroll = p; boss.loading = 0; boss(); }, function(){ boss.loading = 0; }); }
   var p = payroll, m = ST.market && ST.market.pair, lp = lastPayday(), why = "", ok = true;
@@ -826,12 +1284,12 @@ function boss(){
   else why = "0★. payday is open.";
   $("#bosswhy").textContent = why; $("#pay").disabled = !ok || paying;
 }
-$("#csv").addEventListener("click", function(){
+on("#csv", "click", function(){
   if (!payroll || !payroll.list) { toast("no payroll yet"); return; }
   var s = "wallet,sol\n" + payroll.list.map(function(x){ return x.w + "," + (x.lamports / 1e9).toFixed(9); }).join("\n");
   var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([s], { type: "text/csv" })); a.download = "bandz-payroll.csv"; a.click();
 });
-$("#pay").addEventListener("click", function(){
+on("#pay", "click", function(){
   var p = ST.prov, pr = payroll, log = $("#paylog");
   if (!p || !p.request) { toast("this wallet can't sign here. use the csv."); return; }
   if (!pr || !pr.list || !pr.list.length) return;
@@ -860,17 +1318,179 @@ function icon(c, k){
   c.width = w * d; c.height = h * d; var x = c.getContext("2d"); x.scale(d, d);
   var gy = h - 4;
   if (k === "t0") building(x, 0, w / 2, gy, h * 0.9, h * 0.8, null, 0);
-  else if (k === "t1") vehicle(x, { kind: "truck", dir: 1, len: w * 0.9, col: "#7c86a6", lights: false }, w / 2, gy, 0);
+  else if (k === "t1") vehicle(x, { kind: "truck", dir: 1, len: Math.min(w * 0.9, h * 1.5), col: "#7c86a6", lights: false }, w / 2, gy, 0);
   else if (k === "t2") building(x, 2, w / 2, gy, h * 0.95, h * 0.9, null, 0);
   else if (k === "t3") building(x, 3, w / 2, gy, h * 0.95, h * 0.95, null, 0);
   else if (k === "buy") { vehicle(x, { kind: "getaway", dir: 1, len: Math.min(w * 0.42, 120), col: "#2f8f5a", lights: false }, w * 0.36, gy, 0); if (!BAND) bandSprite(); [[0.72, 0.3, 0.5], [0.86, 0.55, -0.4]].forEach(function(b){ x.save(); x.translate(w * b[0], h * b[1]); x.rotate(b[2]); var s = h / 180; x.drawImage(BAND, -75 * s, -45 * s, 150 * s, 90 * s); x.restore(); }); }
   else if (k === "sell") vehicle(x, { kind: "cop", dir: 1, len: Math.min(w * 0.45, 120), col: "#f1eefc", lights: false }, w / 2, gy, 0.05);
+  else if (/^r[1-4]$/.test(k)) { if (!BAND) bandSprite(); var n = +k[1], s2 = h / 190, base = h - 72 * s2;
+    for (var j = 0; j < n; j++) { x.drawImage(BAND, w / 2 - 75 * s2, base - j * 22 * s2, 150 * s2, 90 * s2); }
+    if (n === 4) { var cx2 = w / 2, cy2 = base - 3 * 22 * s2 + 22 * s2, cs = s2 * 1.3; x.fillStyle = "#ffd36b"; x.beginPath();
+      [[-16, 0], [-18, -20], [-8, -9], [0, -24], [8, -9], [18, -20], [16, 0]].forEach(function(p, i){ x[i ? "lineTo" : "moveTo"](cx2 + p[0] * cs, cy2 + p[1] * cs); }); x.closePath(); x.fill();
+      x.fillStyle = "#b8862e"; x.fillRect(cx2 - 16 * cs, cy2 - 3 * cs, 32 * cs, 3 * cs); x.fillStyle = "#ff5c8a"; x.beginPath(); x.arc(cx2, cy2 - 13 * cs, 2.6 * cs, 0, 7); x.fill(); } }
   else if (k === "safe" || k === "pay") { if (!BAND) bandSprite(); var pts = k === "safe" ? [[0.5, 0.78], [0.5, 0.6], [0.5, 0.42]] : [[0.22, 0.6], [0.5, 0.6], [0.78, 0.6]];
     pts.forEach(function(p){ var s = h / (k === "safe" ? 120 : 150); x.drawImage(BAND, w * p[0] - 75 * s, h * p[1] - 45 * s, 150 * s, 90 * s); }); }
 }
 
+function rankOf(a){ return a >= 2e7 ? "boss" : a >= 5e6 ? "capo" : a >= 1e6 ? "soldier" : "rookie"; }
+/* ---------- wanted posters ---------- */
+function hashN(w, i){ var h = 2166136261; for (var k = 0; k < w.length; k++) { h ^= w.charCodeAt(k) + i * 31; h = Math.imul(h, 16777619) >>> 0; } return h; }
+function poster(cv, w, u, idx){
+  var f = canvasFit(cv), c = f.c, W2 = f.w, H2 = f.h; if (W2 < 20) return; var hsh = hashN(w, 1);
+  var g = c.createLinearGradient(0, 0, W2, H2); g.addColorStop(0, "#f1e2bf"); g.addColorStop(1, "#d9c193"); c.fillStyle = g; c.fillRect(0, 0, W2, H2);
+  var R = rng(hsh % 99991 + 7); for (var i = 0; i < 260; i++) { c.fillStyle = "rgba(90,60,30," + (R() * 0.08) + ")"; c.fillRect(R() * W2, R() * H2, 1 + R() * 2, 1 + R() * 2); }
+  var e = c.createRadialGradient(W2 / 2, H2 / 2, Math.min(W2, H2) * 0.3, W2 / 2, H2 / 2, Math.max(W2, H2) * 0.75); e.addColorStop(0, "rgba(120,80,30,0)"); e.addColorStop(1, "rgba(120,80,30,.35)"); c.fillStyle = e; c.fillRect(0, 0, W2, H2);
+  c.strokeStyle = "rgba(60,35,15,.55)"; c.lineWidth = 2; c.strokeRect(7, 7, W2 - 14, H2 - 14);
+  c.fillStyle = "#3b2412"; c.textAlign = "center"; c.font = "900 " + Math.round(W2 * 0.19) + "px Inter, sans-serif"; c.fillText("WANTED", W2 / 2, H2 * 0.17);
+  var px = W2 * 0.18, py = H2 * 0.22, pw = W2 * 0.64, ph = H2 * 0.4, hue = hsh % 360;
+  c.fillStyle = "hsl(" + hue + ",30%,32%)"; c.fillRect(px, py, pw, ph);
+  var cx3 = W2 / 2, hy = py + ph * 0.46, hr = pw * 0.17; c.fillStyle = "#1b1020";
+  c.beginPath(); c.ellipse(cx3, py + ph, pw * 0.36, ph * 0.34, 0, Math.PI, 0); c.fill();
+  c.beginPath(); c.arc(cx3, hy, hr, 0, 7); c.fill();
+  c.fillRect(cx3 - hr * 1.7, hy - hr * 0.75, hr * 3.4, hr * 0.22); c.fillRect(cx3 - hr * 1.05, hy - hr * 1.65, hr * 2.1, hr * 0.95);
+  c.fillStyle = "hsl(" + ((hue + 140) % 360) + ",60%,60%)"; c.fillRect(cx3 - hr * 1.05, hy - hr * 0.95, hr * 2.1, hr * 0.2);
+  var eyes = (hsh >> 3) % 3; c.fillStyle = "#f1e2bf"; if (eyes === 0) { c.fillRect(cx3 - hr * 0.55, hy - hr * 0.1, hr * 0.32, hr * 0.12); c.fillRect(cx3 + hr * 0.23, hy - hr * 0.1, hr * 0.32, hr * 0.12); } else { c.fillStyle = "#0b0610"; c.fillRect(cx3 - hr * 0.8, hy - hr * 0.22, hr * 1.6, hr * 0.32); }
+  c.fillStyle = "#3b2412"; c.font = "800 " + Math.round(W2 * 0.075) + "px JetBrains Mono, monospace"; c.fillText(short(w), W2 / 2, py + ph + H2 * 0.09);
+  c.font = "700 " + Math.round(W2 * 0.06) + "px JetBrains Mono, monospace"; c.fillStyle = "#7a1b22"; c.fillText("SOLD " + usd(u), W2 / 2, py + ph + H2 * 0.17);
+  c.fillStyle = "#b8862e"; var n = 5 - idx; for (var k2 = 0; k2 < n; k2++) { var sx = W2 / 2 + (k2 - (n - 1) / 2) * W2 * 0.11, sy = H2 * 0.9, rr2 = W2 * 0.04; c.beginPath(); for (var a = 0; a < 10; a++) { var ang = -Math.PI / 2 + a * Math.PI / 5, rad = a % 2 ? rr2 * 0.45 : rr2; c[a ? "lineTo" : "moveTo"](sx + Math.cos(ang) * rad, sy + Math.sin(ang) * rad); } c.closePath(); c.fill(); }
+}
+
+/* ---------- payday calculator ---------- */
+function calc(){
+  var inp = $("#bag"); if (!inp) return;
+  var bag = parseFloat(String(inp.value).replace(/[, _]/g, "")), c = ST.crew, v = ST.vault, out = function(k, h){ var e = $('[data-c="' + k + '"]'); if (e) e.innerHTML = h; };
+  var pot = v && !v.error && v.live !== false ? Math.max(0, v.bal - 0.02) : null;
+  out("pot", pot == null ? "—" : sol(pot));
+  if (!(bag > 0)) { out("crew", "—"); out("rank", "—"); out("share", "—"); out("cut", "—"); return; }
+  var min = ST.cfg ? ST.cfg.min : null, isCrew = min != null && bag >= min;
+  out("rank", isCrew ? "<em class=\"rk " + rankOf(bag) + "\">" + rankOf(bag) + "</em>" : "—");
+  out("crew", min == null ? "—" : isCrew ? "<span style=\"color:var(--cash)\">yes</span>" : "<span style=\"color:var(--pink)\">no · floor " + amt(min) + "</span>");
+  if (!c || c.error || c.live === false || !isCrew) { out("share", isCrew ? "—" : "0%"); out("cut", isCrew ? "—" : sol(0)); return; }
+  var share = bag / (c.crewHeld + bag);
+  out("share", (share * 100).toFixed(share < 0.01 ? 3 : 2) + "%");
+  out("cut", pot == null ? "—" : sol(pot * share));
+}
+on("#bag", "input", function(){ calc(); clearTimeout(burst.h); burst.h = setTimeout(burst, 350); });
+function burst(){
+  var cut = $('[data-c="cut"]'); if (!cut || RM || cut.textContent === "—") return; var host = cut.closest(".card"), r = cut.getBoundingClientRect(), hr = host.getBoundingClientRect();
+  for (var i = 0; i < 12; i++) { var b = document.createElement("i"); b.className = "fly"; b.style.left = (r.right - hr.left - 30) + "px"; b.style.top = (r.top - hr.top + 4) + "px"; host.appendChild(b);
+    var dx = (Math.random() - 0.5) * 260, dy = -60 - Math.random() * 140, rot = (Math.random() - 0.5) * 720;
+    b.animate([{ transform: "translate(0,0) rotate(0deg)", opacity: 1 }, { transform: "translate(" + dx + "px," + dy + "px) rotate(" + rot + "deg)", opacity: 1, offset: 0.6 }, { transform: "translate(" + dx * 1.2 + "px," + (dy + 160) + "px) rotate(" + rot * 1.4 + "deg)", opacity: 0 }], { duration: 1300 + Math.random() * 400, easing: "cubic-bezier(.2,.8,.3,1)" }).onfinish = (function(el){ return function(){ el.remove(); }; })(b); }
+  cut.classList.remove("fl"); void cut.offsetWidth; cut.classList.add("fl");
+}
+$$("[data-bag]").forEach(function(b){ b.addEventListener("click", function(){ $("#bag").value = Number(b.dataset.bag).toLocaleString("en-US"); calc(); burst(); }); });
+
+/* ---------- static art: lore board + closing card ---------- */
+function sky(c, w, h, seed){
+  var R = rng(seed), g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "#120a2e"); g.addColorStop(0.45, "#2b1259"); g.addColorStop(0.75, "#6a2277"); g.addColorStop(1, "#d84b78");
+  c.fillStyle = g; c.fillRect(0, 0, w, h);
+  for (var i = 0; i < w / 14; i++) { c.globalAlpha = 0.2 + R() * 0.5; c.fillStyle = "#fff"; c.fillRect(R() * w, R() * h * 0.5, 1.4, 1.4); } c.globalAlpha = 1;
+  var sg = c.createRadialGradient(w / 2, h, 0, w / 2, h, Math.max(w, h) * 0.7); sg.addColorStop(0, "rgba(255,170,120,.55)"); sg.addColorStop(1, "rgba(255,106,138,0)"); c.fillStyle = sg; c.fillRect(0, 0, w, h);
+  [["#5b2a73", 0.5, 0.22], ["#2c1446", 0.28, 0.12], ["#170c2a", 0.16, 0.08]].forEach(function(L, li){
+    var x = -10; while (x < w + 10) { var bw = 24 + R() * 46, bh = h * (L[2] + R() * L[1]); c.fillStyle = L[0]; c.fillRect(x, h - bh, bw, bh);
+      if (li) for (var wy = h - bh + 8; wy < h - 6; wy += 10) for (var wx = x + 5; wx < x + bw - 5; wx += 8) if (R() < 0.09) { c.fillStyle = "rgba(255,211,122,.7)"; c.fillRect(wx, wy, 3, 4); }
+      x += bw + 1; } });
+}
+function canvasFit(cv){ var r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1); cv.width = Math.max(1, r.width * d); cv.height = Math.max(1, r.height * d); var c = cv.getContext("2d"); c.setTransform(d, 0, 0, d, 0, 0); return { c: c, w: r.width, h: r.height }; }
+function loreArt(){
+  var cv = $("#lore"); if (!cv) return; var f = canvasFit(cv), c = f.c, w = f.w, h = f.h; if (w < 10) return;
+  sky(c, w, h * 0.78, 11);
+  c.fillStyle = "#24163d"; c.fillRect(0, h * 0.74, w, h * 0.04); c.fillStyle = "#140b26"; c.fillRect(0, h * 0.78, w, h * 0.22);
+  c.fillStyle = "rgba(255,244,226,.2)"; for (var dx = 0; dx < w; dx += 40) c.fillRect(dx, h * 0.89, 18, 2);
+  var s = Math.min(h * 0.62, w * 0.36), gy = h * 0.74;
+  building(c, 0, w * 0.17, gy, s * 0.4, s * 0.38, null, 0);
+  building(c, 2, w * 0.5, gy, s * 0.5, s * 0.66, null, 0);
+  building(c, 3, w * 0.83, gy, s * 0.5, s * 0.74, null, 0);
+  vehicle(c, { kind: "getaway", dir: 1, len: s * 0.36, col: "#2f8f5a" }, w * 0.36, h * 0.95, 0);
+  vehicle(c, { kind: "cop", dir: 1, len: s * 0.36, col: "#f1eefc" }, w * 0.12, h * 0.95, 0.05);
+  if (!BAND) bandSprite();
+  [[0.58, 0.3, 0.4], [0.66, 0.44, -0.5], [0.42, 0.36, 0.2], [0.72, 0.6, 0.9]].forEach(function(b){ c.save(); c.translate(w * b[0], h * b[1]); c.rotate(b[2]); var k = s / 380; c.drawImage(BAND, -75 * k, -45 * k, 150 * k, 90 * k); c.restore(); });
+}
+function ctaArt(){
+  var cv = $("#ctaart"); if (!cv) return; var f = canvasFit(cv); if (f.w < 10) return; sky(f.c, f.w, f.h, 23);
+  var g = f.c.createLinearGradient(0, 0, 0, f.h); g.addColorStop(0, "rgba(14,8,32,.15)"); g.addColorStop(1, "rgba(14,8,32,.35)"); f.c.fillStyle = g; f.c.fillRect(0, 0, f.w, f.h);
+}
+function footArt(){
+  var cv = $("#footart"); if (!cv) return; var f = canvasFit(cv); if (f.w < 10) return; var c = f.c, w = f.w, h = f.h;
+  c.clearRect(0, 0, w, h); var R = rng(41);
+  [["#1e1036", 0.75, 0.25], ["#150b29", 0.45, 0.12]].forEach(function(L, li){ var x = -10; while (x < w + 10) { var bw = 22 + R() * 40, bh = h * (L[2] + R() * L[1]); c.fillStyle = L[0]; c.fillRect(x, h - bh, bw, bh);
+    if (li) for (var wy = h - bh + 8; wy < h - 6; wy += 10) for (var wx = x + 5; wx < x + bw - 5; wx += 8) if (R() < 0.07) { c.fillStyle = "rgba(255,211,122,.45)"; c.fillRect(wx, wy, 3, 4); }
+    x += bw + 1; } });
+  var g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(14,8,32,1)"); g.addColorStop(0.5, "rgba(14,8,32,0)"); c.fillStyle = g; c.fillRect(0, 0, w, h);
+}
+window.addEventListener("resize", function(){ clearTimeout(loreArt.h); loreArt.h = setTimeout(function(){ loreArt(); ctaArt(); footArt(); }, 150); });
+
+/* ---------- motion ---------- */
+function splitWords(el){ var i = 0; (function walk(n){ Array.prototype.slice.call(n.childNodes).forEach(function(c){
+  if (c.nodeType === 3) { var parts = c.textContent.split(/(\s+)/), frag = document.createDocumentFragment();
+    parts.forEach(function(t){ if (!t) return; if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(t)); return; } var sp = document.createElement("span"); sp.className = "w"; sp.style.animationDelay = (0.05 + i++ * 0.06).toFixed(2) + "s"; sp.textContent = t; frag.appendChild(sp); });
+    n.replaceChild(frag, c); } else if (c.nodeType === 1) walk(c); }); })(el); }
+if (!RM) $$("section.sec h2, .cta h2").forEach(splitWords);
+if (!$("#intro")) document.body.classList.add("ready");
+var over = $(".hero .over"), hud = $(".hero .hud"), plan = $("#plan"), cue = $(".hero .cue");
+function para(){ if (RM || !over) return; var y = window.scrollY, h = cv.offsetHeight; if (y > h) return; var f = Math.max(0, 1 - y / (h * 0.75));
+  over.style.transform = "translateY(" + (y * 0.32).toFixed(1) + "px)"; over.style.opacity = f.toFixed(3);
+  [hud, plan, cue].forEach(function(e){ if (e) e.style.opacity = Math.max(0, 1 - y / (h * 0.4)).toFixed(3); }); }
+window.addEventListener("scroll", para, { passive: true });
+$$(".empty, [data-k=src]").forEach(function(e){ if (/reading/.test(e.textContent)) e.classList.add("load"); });
+var lastHeat = null;
+function heatPulse(n){ if (lastHeat !== null && n !== lastHeat) $$("[data-stars]").forEach(function(e){ e.classList.remove("pulse"); void e.offsetWidth; e.classList.add("pulse"); }); lastHeat = n; }
+
+/* ---------- hover animations ---------- */
+function hoverAnim(cv){
+  var k = cv.dataset.icon, raf2 = 0, t0 = 0, card = cv.closest(".card") || cv;
+  function frameH(now){
+    var t = (now - t0) / 1000, r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1), w = r.width, h = r.height;
+    if (cv.width !== Math.round(w * d)) { cv.width = w * d; cv.height = h * d; }
+    var x = cv.getContext("2d"); x.setTransform(d, 0, 0, d, 0, 0); x.clearRect(0, 0, w, h);
+    if (/^t[023]$/.test(k)) { var kk = +k[1], gy = h - 4; building(x, kk, w / 2, gy, h * (kk === 0 ? 0.9 : 0.95), h * (kk === 0 ? 0.8 : kk === 2 ? 0.9 : 0.95), t, t % 1.6 + 0.01);
+      if (!BAND) bandSprite(); for (var i = 0; i < 5; i++) { var p = ((t * 0.9 + i * 0.2) % 1), bx = w / 2 + Math.sin(i * 2.3) * w * 0.32 * p, by = gy - h * 0.5 - Math.sin(p * Math.PI) * h * 0.45 + p * h * 0.3, s = h / 260; x.save(); x.globalAlpha = 1 - p; x.translate(bx, by); x.rotate(p * 4 + i); x.drawImage(BAND, -75 * s, -45 * s, 150 * s, 90 * s); x.restore(); } }
+    else if (k === "t1") { var L = Math.min(w * 0.9, h * 1.5), tx = ((t * 0.35) % 1.4 - 0.2) * (w + L) - L / 2; vehicle(x, { kind: "truck", dir: 1, len: L, col: "#7c86a6" }, tx, h - 4, t);
+      vehicle(x, { kind: "getaway", dir: 1, len: L * 0.7, col: "#2f8f5a" }, tx - L * 0.95, h - 4, t); }
+    else if (/^r[1-4]$/.test(k)) { icon(cv, k); var c2 = cv.getContext("2d"); c2.setTransform(d, 0, 0, d, 0, 0); var gl = c2.createRadialGradient(w / 2, h * 0.6, 0, w / 2, h * 0.6, h * 0.7); gl.addColorStop(0, "rgba(126,224,143," + (0.18 + 0.12 * Math.sin(t * 6)) + ")"); gl.addColorStop(1, "rgba(126,224,143,0)"); c2.globalCompositeOperation = "destination-over"; c2.fillStyle = gl; c2.fillRect(0, 0, w, h); c2.globalCompositeOperation = "source-over"; }
+    raf2 = requestAnimationFrame(frameH);
+  }
+  card.addEventListener("mouseenter", function(){ if (RM || raf2) return; t0 = performance.now(); raf2 = requestAnimationFrame(frameH); });
+  card.addEventListener("mouseleave", function(){ cancelAnimationFrame(raf2); raf2 = 0; icon(cv, k); });
+}
+$$(".jobcard canvas[data-icon], .rank canvas[data-icon]").forEach(hoverAnim);
+
+/* ---------- weather toggle ---------- */
+var WXM = ["auto", "rain", "storm", "clear"];
+on("#wx", "click", function(){ WX.mode = WXM[(WXM.indexOf(WX.mode) + 1) % WXM.length]; var b = $("#wx"); b.dataset.m = WX.mode; b.querySelector("b").textContent = WX.mode === "auto" ? "heat" : WX.mode; if (WX.mode === "storm") WX.nextBolt = 0.3; });
+
+/* ---------- hero mouse parallax ---------- */
+var MX = 0, MXT = 0;
+if (!RM && window.matchMedia && matchMedia("(pointer: fine)").matches) $(".hero").addEventListener("mousemove", function(e){ MXT = (e.clientX / innerWidth - 0.5) * 2; });
+
+/* ---------- tilt ---------- */
+if (!RM && window.matchMedia && matchMedia("(pointer: fine)").matches) $$(".jobcard, .rank, .step, .mini4 .card, .poster, .flow .f").forEach(function(el){
+  el.addEventListener("mousemove", function(e){ var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = "perspective(700px) rotateX(" + (-y * 7).toFixed(2) + "deg) rotateY(" + (x * 9).toFixed(2) + "deg) translateY(-3px)"; el.style.setProperty("--gx", ((x + 0.5) * 100).toFixed(1) + "%"); el.style.setProperty("--gy", ((y + 0.5) * 100).toFixed(1) + "%"); });
+  el.addEventListener("mouseleave", function(){ el.style.transform = ""; });
+});
+
+/* ---------- scroll progress ---------- */
+var prog = $("#prog");
+function progNow(){ if (!prog) return; var m = document.documentElement.scrollHeight - innerHeight; prog.style.transform = "scaleX(" + (m > 0 ? Math.min(1, window.scrollY / m) : 0).toFixed(4) + ")"; }
+window.addEventListener("scroll", progNow, { passive: true }); progNow();
+
+/* ---------- intro ---------- */
+(function(){ var el = $("#intro"); if (!el) return; var seen = false; try { seen = !!sessionStorage.getItem("bz_intro"); } catch (e) {}
+  if (seen || RM) { el.remove(); document.body.classList.add("ready"); return; } try { sessionStorage.setItem("bz_intro", "1"); } catch (e) {}
+  var sky = el.querySelector(".isky"), R2 = rng(5); if (sky) for (var i = 0; i < 46; i++) { var b = document.createElement("i"); b.style.height = (18 + Math.pow(R2(), 1.5) * 62) + "%"; b.style.animationDelay = (i * 0.012).toFixed(3) + "s"; sky.appendChild(b); }
+  document.documentElement.classList.add("lock");
+  function done(){ if (!el.parentNode || el.classList.contains("out")) return; el.classList.add("out"); document.body.classList.add("ready"); document.documentElement.classList.remove("lock"); setTimeout(function(){ el.remove(); }, 750); }
+  el.addEventListener("click", done); setTimeout(done, 1900); })();
+
 /* ---------- page ---------- */
-$("#menu").addEventListener("click", function(){ $("#links").classList.toggle("open"); });
+var nav = $("#nav");
+function navState(){ var h = $(".hero"), lim = h ? h.offsetHeight - 90 : 40; nav.classList.toggle("solid", window.scrollY > lim || $("#links").classList.contains("open")); }
+window.addEventListener("scroll", navState, { passive: true }); navState();
+var spy = $$("#links a").filter(function(a){ return /^#/.test(a.getAttribute("href")); });
+function spyNow(){ var cur = null; spy.forEach(function(a){ var t = $(a.getAttribute("href")); if (t && t.getBoundingClientRect().top < 140) cur = a; }); spy.forEach(function(a){ a.classList.toggle("on", a === cur); }); }
+window.addEventListener("scroll", function(){ clearTimeout(spyNow.h); spyNow.h = setTimeout(spyNow, 60); }, { passive: true });
+$("#menu").addEventListener("click", function(){ $("#links").classList.toggle("open"); navState(); });
 $$("#links a").forEach(function(a){ a.addEventListener("click", function(){ $("#links").classList.remove("open"); }); });
 document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-copy]"); if (!b) return;
   copy(b.dataset.copy === "ca" ? ST.cfg && ST.cfg.mint : ST.cfg && ST.cfg.safehouse); });
@@ -880,10 +1500,10 @@ function sweep(){ $$(".rv:not(.vis)").forEach(function(e){ if (e.getBoundingClie
 window.addEventListener("hashchange", sweep); window.addEventListener("scroll", function(){ clearTimeout(sweep.h); sweep.h = setTimeout(sweep, 80); }, { passive: true });
 stars(null);
 resize(); start();
-$$("canvas[data-icon]").forEach(function(c){ icon(c, c.dataset.icon); });
+$$("canvas[data-icon]").forEach(function(c){ icon(c, c.dataset.icon); }); loreArt(); ctaArt(); footArt();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ draw((performance.now() - T0) / 1000); });
 J("/api/config").then(function(c){ ST.cfg = c; }, function(){ ST.cfg = { mint: null, safehouse: null, min: 100000, every: 6 }; }).then(function(){
-  setK("ca", ST.cfg.mint || "—"); setK("ca2", ST.cfg.mint || "—"); links(); srcLine();
+  setK("ca", ST.cfg.mint || "—"); setK("ca2", ST.cfg.mint || "—"); setK("ca3", ST.cfg.mint || "—"); links(); srcLine();
   every("market", 15000); every("jobs", 12000); every("vault", 60000); every("crew", 120000);
 });
 })();

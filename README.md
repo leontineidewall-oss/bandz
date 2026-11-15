@@ -4,7 +4,7 @@ buys drop bandz. sells bring cops.
 
 Live at https://bandzsol.vercel.app
 
-Static page (index.html) plus Vercel functions in api/. No database and no keys on the server: everything is read from public data, and payday is signed by the safehouse wallet in the browser.
+Two static pages, index.html (home) and hq.html (/hq: live feed, ledger, crew, payday), plus Vercel functions in api/. No database and no keys on the server: everything is read from public data, and payday is signed by the safehouse wallet in the browser.
 
 ## Environment (Vercel, Settings, Environment Variables)
 
@@ -26,7 +26,7 @@ Static page (index.html) plus Vercel functions in api/. No database and no keys 
 
 ## Payday
 
-Open the site, connect the safehouse wallet (Phantom) under crew. When heat is 0 stars the "pay the crew" button sends the payroll in batches of 18 transfers; you sign each one. "payroll .csv" downloads the same list for any multisender.
+Open /hq, connect the safehouse wallet (Phantom) under crew. When heat is 0 stars the "pay the crew" button sends the payroll in batches of 18 transfers; you sign each one. "payroll .csv" downloads the same list for any multisender.
 
 ## Routes
 
