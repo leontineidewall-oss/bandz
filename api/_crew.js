@@ -3,6 +3,9 @@ const { rpc, pairs, cfg } = require("./_lib");
 const { b58enc, onCurve } = require("./_sol");
 const TOKEN = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", T22 = "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb";
 let memo = null;
+// crew ranks by bag size (in bandz)
+const RANKS = [["boss", 20e6], ["capo", 5e6], ["soldier", 1e6], ["rookie", 0]];
+const title = amt => RANKS.find(r => amt >= r[1])[0];
 async function crew() {
   const c = cfg();
   if (memo && memo.mint === c.mint && Date.now() - memo.at < 60000) return memo.v;
@@ -27,7 +30,9 @@ async function crew() {
   }
   const all = [...by.entries()].map(([w, amt]) => ({ w, amt })).sort((a, b) => b.amt - a.amt);
   const members = all.filter(m => m.amt >= c.min);
-  const out = { t: Date.now(), min: c.min, holders: all.length, count: members.length, held: total, crewHeld: members.reduce((s, m) => s + m.amt, 0), members, all };
+  const ranks = { boss: 0, capo: 0, soldier: 0, rookie: 0 };
+  for (const m of members) ranks[title(m.amt)]++;
+  const out = { t: Date.now(), min: c.min, holders: all.length, count: members.length, held: total, crewHeld: members.reduce((s, m) => s + m.amt, 0), ranks, members, all };
   memo = { mint: c.mint, at: Date.now(), v: out };
   return out;
 }
@@ -43,4 +48,4 @@ function split(members, pot, max = 180, dust = 0.001) {
   const tot = list.reduce((s, m) => s + m.amt, 0);
   return list.map(m => ({ w: m.w, amt: m.amt, lamports: tot > 0 ? Math.floor(pot * 1e9 * m.amt / tot) : 0 })).filter(x => x.lamports > 0);
 }
-module.exports = { crew, split, TOKEN, T22, reset: () => { memo = null; } };
+module.exports = { crew, split, title, RANKS, TOKEN, T22, reset: () => { memo = null; } };
